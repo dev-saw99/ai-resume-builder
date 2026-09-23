@@ -41,13 +41,17 @@ interface AppState {
 
 const params = new URLSearchParams(window.location.search);
 
-const initial = validateResume(exampleResume);
+// The PDF renderer injects the current resume here so it renders unsaved editor content.
+const source = window.__RESUME_OVERRIDE__ ?? exampleResume;
+const MARGINS: MarginPreset[] = ["none", "narrow", "normal", "wide"];
+
+const initial = validateResume(source);
 if (!initial.success) {
   throw new Error(`${__RESUME_FILE__} failed schema validation — run \`npm run validate -- ${__RESUME_FILE__}\``);
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  jsonText: JSON.stringify(exampleResume, null, 2),
+  jsonText: JSON.stringify(source, null, 2),
   resume: initial.data,
   parseError: null,
   schemaErrors: [],
@@ -56,8 +60,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   themeId: params.get("theme") ?? "google",
   fontId: params.get("font") ?? "theme",
   bgColor: params.get("bg") ? `#${params.get("bg")!.replace(/^#/, "")}` : null,
-  paperSize: "a4",
-  marginPreset: "normal",
+  paperSize: params.get("paper") === "letter" ? "letter" : "a4",
+  marginPreset: MARGINS.find((m) => m === params.get("margin")) ?? "normal",
 
   setJsonText: (text) => {
     let parsed: unknown;

@@ -1,9 +1,11 @@
+import type { IncomingMessage, ServerResponse } from "node:http";
 import { writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, type Plugin } from "vite";
+import { closeBrowser, renderPdf } from "../../packages/pdf/src/render.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "../..");
@@ -43,8 +45,58 @@ function saveResumePlugin(): Plugin {
   };
 }
 
+/**
+ * POST /api/pdf — renders the current resume with our own headless Chrome (see
+ * packages/pdf/src/render.mjs) so the PDF doesn't depend on the browser's print dialog.
+ * The client falls back to the browser print dialog if this endpoint is unavailable.
+ */
+function pdfPlugin(): Plugin {
+  type Middlewares = { use: (path: string, handler: (req: IncomingMessage, res: ServerResponse) => void) => void };
+  const install = (middlewares: Middlewares) => {
+    middlewares.use("/api/pdf", async (req, res) => {
+      const fail = (status: number, message: string) => {
+        res.statusCode = status;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ ok: false, error: message }));
+      };
+      if (req.method !== "POST") return fail(405, "Method not allowed");
+      try {
+        const chunks: Buffer[] = [];
+        for await (const chunk of req) chunks.push(chunk as Buffer);
+        const body = JSON.parse(Buffer.concat(chunks).toString("utf-8"));
+        const pdf = await renderPdf({
+          baseUrl: `http://${req.headers.host}/`,
+          resume: body.resume,
+          theme: body.theme,
+          font: body.font,
+          bg: body.bg ?? undefined,
+          paper: body.paper === "letter" ? "letter" : "a4",
+          margin: ["none", "narrow", "normal", "wide"].includes(body.margin) ? body.margin : "normal",
+        });
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-Length", String(pdf.length));
+        res.end(pdf);
+      } catch (error) {
+        fail(500, (error as Error).message);
+      }
+    });
+  };
+  return {
+    name: "resume-pdf",
+    configureServer(server) {
+      install(server.middlewares);
+      server.httpServer?.once("close", () => void closeBrowser());
+    },
+    configurePreviewServer(server) {
+      install(server.middlewares);
+      server.httpServer?.once("close", () => void closeBrowser());
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), saveResumePlugin()],
+  plugins: [react(), tailwindcss(), saveResumePlugin(), pdfPlugin()],
   resolve: {
     alias: { "@resume-data": resumeJsonPath },
   },

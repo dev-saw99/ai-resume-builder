@@ -8,7 +8,7 @@ JSON → Schema (Zod) → Renderer → Theme → HTML / PDF
 
 ## Quick workflow
 
-1. **Collect the content.** Ask for (or extract from a pasted CV/LinkedIn/GitHub): name, headline, contact, summary, work history (company, title, dates, achievements), projects, education, skills, certifications. Don't invent facts, metrics or dates — ask when unsure.
+1. **Collect the content** (start with `data/inputs/`). Ask for (or extract from a pasted CV/LinkedIn/GitHub): name, headline, contact, summary, work history (company, title, dates, achievements), projects, education, skills, certifications. Don't invent facts, metrics or dates — ask when unsure.
 2. **Write the JSON** to `data/<name>.json`. The `data/` folder is git-ignored, so personal data never gets committed. Start the file with `"$schema": "../resume.schema.json"` for editor autocompletion. `examples/sonu.json` is a complete reference.
 3. **Validate** (fast, no browser needed):
    ```bash
@@ -22,12 +22,32 @@ JSON → Schema (Zod) → Renderer → Theme → HTML / PDF
    ```
    Open the printed URL. Edit JSON on the left, the resume updates live. **Save** (Ctrl/⌘+S in the editor) writes back to `RESUME_FILE`. Without `RESUME_FILE` the app loads `examples/sonu.json`.
 5. **Pick a theme**: use the right-hand sidebar (arrow keys / `[` `]` switch live), or the URL: `http://localhost:5173/?theme=<id>` (optional `&font=<font-id>` and `&bg=<hex>`).
-6. **Export the PDF** — either click **Download PDF** in the app (choose A4/Letter and margins first), or headlessly:
+6. **Export the PDF** — the project renders PDFs itself with a headless Chrome it controls (fixed paper size, no headers/footers, page background printed, tagged PDF with bookmarks), so output never depends on browser print-dialog settings:
    ```bash
-   google-chrome --headless=new --no-pdf-header-footer --virtual-time-budget=5000 \
-     --print-to-pdf=resume.pdf "http://localhost:5173/?theme=<id>"
+   npm run pdf -- data/<name>.json --theme <id> [--paper a4|letter] [--margin none|narrow|normal|wide] [--font <id>] [--bg <hex>] [--out me.pdf]
    ```
-   The headless route uses A4 with normal margins. The PDF has real, selectable text (good for ATS). Open it, check page breaks, and iterate.
+   Defaults: A4, normal margins, output next to the JSON file (`data/<name>.pdf`). The **Download PDF** button in the app uses the same renderer; if no Chrome/Chromium is installed (set `CHROME_PATH=/path/to/chrome` if it isn't on `PATH`) it falls back to the browser print dialog. Open the PDF, check page breaks, and iterate.
+
+## Tailoring to a job description (JD)
+
+When the user gives you a JD (paste, or a file such as `data/inputs/jd-*.txt`), **never edit their master resume** — write a copy (`data/me.<company>.json`) and render that.
+
+1. Extract from the JD: must-have skills, nice-to-haves, recurring themes — in the JD's **exact wording**.
+2. Gap analysis: JD requirement → where the resume already shows it, or "missing". **Ask the user** about each gap; only add what they confirm they've actually done. Never fabricate skills, metrics, titles or dates.
+3. Apply, using only true facts:
+   - `summary`: lead with what this role needs.
+   - `skills`: JD must-haves first; rename groups to the JD's terms; include both forms when useful (`Kubernetes (K8s)`, `CI/CD`).
+   - `experience[].highlights`: reorder so the most relevant come first and reuse the JD's vocabulary (same facts). Keywords work best *in context* inside bullets.
+   - `experience[].keywords` / `projects[].keywords`: technologies the user really used there.
+   - `meta.sectionOrder` / `meta.hiddenSections`: surface or hide sections; keep to one page unless 8+ years.
+4. `npm run validate -- <copy>`, then `npm run pdf -- <copy> --theme <single-column theme> --out data/<company>-resume.pdf`.
+5. Report what changed and which JD keywords the user still doesn't cover.
+
+Don't keyword-stuff or hide text. Use a single-column theme for ATS submissions.
+
+## Getting the user's material
+
+Look in `data/inputs/` first (old CV, LinkedIn text, notes, JDs). If it's empty, ask the user to paste or drop files there. Extract only what's written; ask about missing dates/metrics rather than guessing. See [`docs/using-ai.md`](docs/using-ai.md) for the user-facing version of these workflows and the prompts they may paste. Chat-only users (no file access) follow that document's "Path B".
 
 ## Resume JSON cheat sheet
 
@@ -75,6 +95,8 @@ Rules that trip people up:
 
 Guidance: recruiters/ATS → single-column. Design/creative roles → graphical. Dark themes look great on screen and print fine (the background is printed), but many people prefer a light theme for paper. Two-column sidebars don't repeat on page 2, so keep two-column resumes to one page when possible.
 
+Pagination: long entries may split across pages (each bullet stays whole and a job's header always travels with its first lines); short sections like education stay together. Don't fight it with padding hacks.
+
 Fonts: `&font=<id>` overrides the theme font; ids are in `apps/web/src/fonts.ts` (fonts load from Google Fonts, so they need internet access when previewing/printing).
 
 ## Project map
@@ -85,7 +107,7 @@ Fonts: `&font=<id>` overrides the theme font; ids are in `apps/web/src/fonts.ts`
 | `packages/ui` | Theme contract (`Theme`, `DesignTokens`), default section components, base CSS |
 | `packages/renderer` | `<ResumeRenderer data theme />` |
 | `packages/themes` | All themes (`<id>.tsx` tokens/components) + `styles.css` (per-theme CSS) + `index.ts` registry |
-| `packages/pdf` | Print hook, paper sizes, margins |
+| `packages/pdf` | Paper sizes/margins, the headless-Chrome PDF renderer (`src/render.mjs`) and the `npm run pdf` CLI, plus the browser-print fallback hook |
 | `apps/web` | Editor app (Vite + React + Tailwind v4) |
 | `examples/sonu.json` | Reference resume (must always validate) |
 | `data/` | Git-ignored — put real personal resumes here |
@@ -98,6 +120,7 @@ npm run dev                 # editor app (RESUME_FILE=… to load your resume)
 npm run build               # production build
 npm run typecheck           # tsc across the monorepo — run before finishing code changes
 npm run validate -- <file>  # validate a resume JSON file
+npm run pdf -- <file> --theme <id>  # render a resume JSON straight to PDF (needs Chrome/Chromium)
 npm run schema:generate     # regenerate resume.schema.json after editing the Zod schema
 ```
 

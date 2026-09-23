@@ -14,9 +14,13 @@
     "preview": "npm run preview --workspace=@resume/web",
     "typecheck": "tsc --noEmit",
     "schema:generate": "node packages/schema/scripts/generate-json-schema.mjs",
-    "validate": "node packages/schema/scripts/validate.mjs"
+    "validate": "node packages/schema/scripts/validate.mjs",
+    "pdf": "node packages/pdf/scripts/pdf.mjs"
   },
   "devDependencies": {
     "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=22.18"
   }
 }

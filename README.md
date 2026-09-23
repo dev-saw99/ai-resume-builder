@@ -17,12 +17,44 @@ npm run dev
 
 Open the app, edit the JSON on the left, watch the preview update instantly. Use your own resume with `RESUME_FILE=data/me.json npm run dev` (the `data/` folder is git-ignored). The header has a light/dark toggle for the app UI, and the right-hand sidebar switches themes live (arrow keys, or `[` / `]`). Pick a theme, pick a paper size, click **Download PDF**.
 
-> **Using an AI agent?** See [`AGENTS.md`](AGENTS.md) — a step-by-step guide for creating a resume with this project.
+> **Using AI?** See [How to use](#how-to-use) and [`docs/using-ai.md`](docs/using-ai.md) (agents *and* chat AIs, feeding it your work, tailoring to a JD). Agents read [`AGENTS.md`](AGENTS.md).
+
+## How to use
+
+Your resume is **one JSON file**. You write (or generate) it, pick a theme, and export a PDF. Three ways to get there:
+
+| I want to… | Do this |
+| --- | --- |
+| **Write it myself** | `npm install && npm run dev`, edit the JSON on the left (errors show inline, `resume.schema.json` gives editor autocompletion), switch themes on the right, **Download PDF**. Start from [`examples/sonu.json`](examples/sonu.json). |
+| **Let an AI agent do it** (Claude Code, Codex CLI, Gemini CLI, Cursor, …) | Put your old CV / notes / JD in `data/inputs/` and tell the agent: *"Read AGENTS.md and build my resume from data/inputs/."* It writes `data/me.json`, validates it and renders the PDF for you. |
+| **Use a chat AI** (ChatGPT, Claude.ai, Gemini, …) | Paste the [ready-made prompt](docs/using-ai.md#path-b--chat-ai-chatgpt-claudeai-gemini-) plus your CV/notes → it returns the JSON → paste it into the app's editor (or save as `data/me.json` and run `npm run validate`). |
+
+**Step by step**
+
+1. **Install** — `npm install` (Node 22.18+ — the `validate`/`pdf` scripts run TypeScript directly; Chrome/Chromium is needed only for PDF export).
+2. **Create your data** — save your resume as `data/me.json` (the `data/` folder is git-ignored, so personal data is never committed).
+3. **Preview** — `RESUME_FILE=data/me.json npm run dev`, then open the printed URL. Switch themes with the right-hand sidebar (↑/↓ or `[` / `]` change the theme live; `\` collapses it), change font, paper size and margins in the top bar.
+4. **Validate** — `npm run validate -- data/me.json` lists any problems by path.
+5. **Export** — click **Download PDF**, or `npm run pdf -- data/me.json --theme slate` → `data/me.pdf`.
+
+### Tailor it to a job description
+
+Keep `data/me.json` as your master, give an AI the master + the job description, and ask it to produce a tailored copy (`data/me.acme.json`): JD keywords in `skills`, `summary` and `highlights` — **only for things you've really done** — then render one PDF per application. The full workflow, copy-paste prompts, a "where keywords go" table and ATS do's and don'ts are in **[docs/using-ai.md](docs/using-ai.md)**, which also covers what material to gather and how to hand it to an AI.
+
+## Exporting a PDF
+
+PDFs are rendered by the project itself, not by your browser's print dialog: a headless Chrome we control prints a dedicated chrome-free view (`/?print=1`) with a fixed paper size, no headers/footers, backgrounds included, and tagged text + bookmarks — so the output is the same for everyone.
+
+```bash
+npm run pdf -- data/me.json --theme slate --paper a4 --margin normal   # → data/me.pdf
+```
+
+The **Download PDF** button uses the same renderer. Requirements: Chrome or Chromium installed on the machine (`puppeteer-core` does not download one; set `CHROME_PATH` if it isn't on your `PATH`) and internet access for Google Fonts. Without a local Chrome the button falls back to the browser print dialog. Long jobs and projects flow across pages instead of leaving gaps; each bullet and short section stays whole.
 
 ## Why this architecture
 
 - **ATS & AI-parser friendly** — semantic HTML (`h1`, `h2`, `ul`), real vector text in PDFs, no rasterization, no tables-for-layout.
-- **Pixel-perfect PDF** — print-first via `react-to-print`; the browser's print engine produces selectable, searchable text. What you preview is what you export.
+- **Consistent PDF** — rendered by a headless Chrome the project controls (see [Exporting a PDF](#exporting-a-pdf)), with real selectable, searchable vector text; `react-to-print` remains as a fallback.
 - **Theme switching never touches data** — themes are design tokens + component overrides. Swapping themes re-renders the same JSON.
 - **New themes need zero renderer changes** — the renderer only knows the `ThemeComponents` contract.
 

@@ -82,8 +82,33 @@
 
 /* ---------- Entries ---------- */
 
+/*
+ * Pagination: long entries (jobs, projects) may split across pages so pages fill
+ * up — `break-inside: avoid` on a big entry strands a large gap at the bottom of
+ * the previous page. Short entries stay whole, each bullet is never split, and an
+ * entry header always travels with its first lines.
+ */
 .rb-entry {
   margin-bottom: var(--rb-space-item);
+  break-inside: auto;
+}
+
+:is(
+  .rb-slot-education,
+  .rb-slot-certifications,
+  .rb-slot-achievements,
+  .rb-slot-awards,
+  .rb-slot-publications,
+  .rb-slot-languages
+) .rb-entry {
+  break-inside: avoid;
+}
+
+.rb-entry-header + * {
+  break-before: avoid;
+}
+
+.rb-bullets li {
   break-inside: avoid;
 }
 
@@ -254,7 +279,7 @@
     break-after: avoid-page;
   }
 
-  .rb-entry {
+  .rb-bullets li {
     break-inside: avoid-page;
   }
 

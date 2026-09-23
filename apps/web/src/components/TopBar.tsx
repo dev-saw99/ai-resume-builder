@@ -105,7 +105,7 @@ function ModeToggle() {
   );
 }
 
-export function TopBar({ onPrint }: { onPrint: () => void }) {
+export function TopBar({ onPrint, exporting = false }: { onPrint: () => void; exporting?: boolean }) {
   const themeId = useAppStore((s) => s.themeId);
   const fontId = useAppStore((s) => s.fontId);
   const bgColor = useAppStore((s) => s.bgColor);
@@ -209,12 +209,14 @@ export function TopBar({ onPrint }: { onPrint: () => void }) {
         <button
           type="button"
           onClick={onPrint}
-          className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3.5 text-xs font-semibold text-white shadow-sm outline-none transition hover:bg-zinc-700 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 active:scale-[0.98]"
+          disabled={exporting}
+          aria-busy={exporting}
+          className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3.5 text-xs font-semibold text-white shadow-sm outline-none transition hover:bg-zinc-700 focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70"
         >
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M8 2v8m0 0L5 7m3 3 3-3M3 13h10" />
           </svg>
-          Download PDF
+          {exporting ? "Generating…" : "Download PDF"}
         </button>
       </div>
     </header>
