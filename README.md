@@ -19,6 +19,25 @@ Open the app, edit the JSON on the left, watch the preview update instantly. Use
 
 > **Using AI?** See [How to use](#how-to-use) and [`docs/using-ai.md`](docs/using-ai.md) (agents *and* chat AIs, feeding it your work, tailoring to a JD). Agents read [`AGENTS.md`](AGENTS.md).
 
+## The problem this solves
+
+If you've kept a resume in Word, Google Docs or a design template, you know the cycle: add one bullet and the layout jumps, a heading gets stranded at the bottom of a page, a table cell blows up, and you spend an hour nudging margins, font sizes and spaces to get back to one page. Want a fresh look? Rebuild the whole document in a new template and re-paste everything. Applying to ten jobs? Ten files named `resume_final_v3_REAL.docx`.
+
+The root cause is that **content and formatting live in the same file**. Here they're separate: your resume is plain data, and themes decide how it looks.
+
+| The usual pain | What happens here |
+| --- | --- |
+| Edit one line and the layout breaks or shifts | You only edit text in a JSON file. The layout is generated, so everything reflows on its own — long jobs flow across pages, headers stay with their first lines, bullets never split. |
+| Fiddling with margins, font sizes, tabs and spaces to fit a page | None of that is in your data. Paper size, margins, font and background are settings in the top bar, applied on top of any theme. |
+| Want a different look → rebuild the doc in a new template | Switch themes with one keystroke (29 of them: single-column, two-column, graphical, dark). Same data, no re-pasting, nothing to fix afterwards. |
+| `resume_final_v3_REAL.docx`, and no idea what changed between versions | One master JSON plus a copy per job, kept in git. A diff shows exactly which words changed. |
+| Tailoring for each job means duplicating and hand-editing a formatted document | Edit data only — by hand or with an AI ([guide](docs/using-ai.md)) — and re-render. The design can't be damaged because it isn't in the file. |
+| Templates full of tables, text boxes and icon images that ATS parsers choke on | Semantic HTML and real, selectable text in the PDF; single-column themes for ATS submissions. |
+| The PDF looks different on another machine or print dialog | PDFs come from a headless Chrome the project controls (fixed paper, margins, no headers/footers), so the output is the same everywhere. |
+| Typos and inconsistent formats (dates, links, missing fields) | A schema validates the file and names the exact field to fix (`experience.0.startDate — Required`). |
+
+The one honest limit: themes decide layout, so a very long resume still needs editing to fit the page count you want — but you fix that by cutting words, not by fighting formatting. (Two-column sidebars also don't repeat on page 2, so keep those to one page when you can.)
+
 ## How to use
 
 Your resume is **one JSON file**. You write (or generate) it, pick a theme, and export a PDF. Three ways to get there:

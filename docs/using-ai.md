@@ -2,6 +2,8 @@
 
 Your resume is one JSON file. AI is very good at turning messy material (an old CV, LinkedIn text, project notes, a job description) into that JSON — and this project gives it a strict schema to aim at, so the result is checked, not guessed.
 
+**Why JSON instead of asking AI to "write me a resume document"?** Because the AI only touches *content*. Ask a chat AI to edit a formatted document and it may quietly change the layout, drop a section or reflow everything; ask it to edit this JSON and the worst case is a validation error that names the exact field. The design stays untouched no matter how many times you re-tailor, re-order or rewrite — and switching themes afterwards is one click.
+
 There are two ways to work with AI. Pick the one that matches your tool:
 
 | | **AI harness / coding agent** | **Chat AI** |
