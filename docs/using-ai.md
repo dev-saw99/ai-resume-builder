@@ -53,7 +53,7 @@ git clone https://github.com/dev-saw99/ai-resume-builder.git resume && cd resume
 npm install
 ```
 
-You also need Chrome or Chromium installed for PDF export (set `CHROME_PATH` if it isn't on your `PATH`).
+You also need a Chromium-based browser (Chrome, Chromium, Brave or Edge) installed for one-click PDF export; set `CHROME_PATH` if it isn't found automatically. See [Troubleshooting](../README.md#troubleshooting).
 
 **2. Drop your material into `data/inputs/`**
 

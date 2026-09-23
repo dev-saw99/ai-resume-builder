@@ -1,4 +1,8 @@
 export function findChrome(): string | null;
+export class PdfError extends Error {
+  code: "NO_CHROME" | "LAUNCH_FAILED" | string;
+  constructor(code: string, message: string);
+}
 export function closeBrowser(): Promise<void>;
 export function renderPdf(options: {
   baseUrl: string;

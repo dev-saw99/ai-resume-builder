@@ -11,7 +11,7 @@ Edit one line and nothing else moves.
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![29 themes](https://img.shields.io/badge/themes-29-8b5cf6)
 
-[The problem](#the-problem-this-solves) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Use with AI](#use-it-with-ai) &nbsp;·&nbsp; [Themes](#themes) &nbsp;·&nbsp; [PDF export](#exporting-a-pdf) &nbsp;·&nbsp; [Resume JSON](#the-resume-json) &nbsp;·&nbsp; [Develop](#development)
+[The problem](#the-problem-this-solves) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Use with AI](#use-it-with-ai) &nbsp;·&nbsp; [Themes](#themes) &nbsp;·&nbsp; [PDF export](#exporting-a-pdf) &nbsp;·&nbsp; [Resume JSON](#the-resume-json) &nbsp;·&nbsp; [Troubleshooting](#troubleshooting) &nbsp;·&nbsp; [Develop](#development)
 
 <img src="screenshots/hero.png" alt="Five Resume Builder themes rendering the same resume: Slate, Aurora, Bauhaus, Midnight and Parchment" width="100%">
 
@@ -62,13 +62,15 @@ npm install
 npm run dev
 ```
 
-Requirements: **Node 22.18+** (the `validate` and `pdf` scripts run TypeScript directly). Chrome or Chromium is needed only for PDF export.
+Requirements: **Node 22.18+** (the `validate` and `pdf` scripts run TypeScript directly). A Chromium-based browser (Chrome, Chromium, Brave or Edge) is needed only for one-click PDF export.
 
 Open the printed URL, edit the JSON on the left and watch the preview update. To work on your own resume instead of the bundled example:
 
 ```bash
 # save your resume as data/me.json (the data/ folder is git-ignored, so it is never committed)
-RESUME_FILE=data/me.json npm run dev        # fish shell: env RESUME_FILE=data/me.json npm run dev
+RESUME_FILE=data/me.json npm run dev                       # macOS / Linux (bash, zsh)
+env RESUME_FILE=data/me.json npm run dev                   # fish
+$env:RESUME_FILE="data/me.json"; npm run dev               # Windows PowerShell
 ```
 
 Then:
@@ -184,9 +186,46 @@ The **Download PDF** button uses the same renderer. Long jobs and projects flow 
 <details>
 <summary>Requirements and fallback</summary>
 
-- Chrome or Chromium installed on the machine. `puppeteer-core` does not download one; set `CHROME_PATH=/path/to/chrome` if it is not on your `PATH`.
+- A Chromium-based browser installed on the machine: **Chrome, Chromium, Brave or Edge** all work. `puppeteer-core` (installed by `npm install`) does not download a browser; the renderer finds an installed one automatically, or you can point to it with `CHROME_PATH`.
 - Internet access for Google Fonts while rendering. Offline, the PDF falls back to system fonts.
-- Without a local Chrome, the button falls back to the browser print dialog.
+- If no browser is found, the button shows a notice explaining why and falls back to the browser print dialog. See [Troubleshooting](#troubleshooting).
+
+</details>
+
+## Troubleshooting
+
+<details>
+<summary><b>"PDF renderer unavailable" — Download PDF opens the print dialog instead</b></summary>
+
+The one-click PDF is made by a headless Chromium-based browser on the machine running `npm run dev`. The notice in the app says why. Usual fixes:
+
+- **No browser found** — install Chrome, Chromium, **Brave** or Edge, or tell the project where it is with `CHROME_PATH`:
+
+  ```bash
+  # Brave, macOS
+  CHROME_PATH="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" npm run dev
+  # Brave, Linux
+  CHROME_PATH=/opt/brave.com/brave/brave npm run dev
+  ```
+  ```powershell
+  # Brave, Windows PowerShell
+  $env:CHROME_PATH="C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"; npm run dev
+  ```
+
+  The same variable works for `npm run pdf`. Browsers installed as a **Flatpak** (or other sandbox) cannot be driven this way — use a native package.
+- **The browser is found but will not start** — the notice shows the browser's own error. Try another browser via `CHROME_PATH`, and make sure it is not just a wrapper script.
+- **You are not running the project's own server** — `/api/pdf` only exists under `npm run dev` / `npm run preview`. A statically hosted build (GitHub Pages, Netlify, …) has no renderer and uses the print dialog; use `npm run pdf` locally instead.
+- **You are stuck with the print dialog** — set *Margins: None*, turn **off** *Headers and footers*, turn **on** *Background graphics*, and pick the paper size that matches the top bar.
+
+</details>
+
+<details>
+<summary><b>Other install and run problems</b></summary>
+
+- **`npm run validate` / `npm run pdf` fail with a TypeScript or "unknown file extension" error** — you need Node 22.18 or newer (`node -v`).
+- **`RESUME_FILE=… npm run dev` says the command is not recognised** — that syntax is for bash/zsh; see the [Quick start](#quick-start) for fish and PowerShell.
+- **Fonts look different or the PDF is slow to start** — fonts load from Google Fonts, so they need internet access. Offline, system fonts are used.
+- **`npm install` fails or packages are missing** — use `npm ci` for a clean install from the lockfile.
 
 </details>
 

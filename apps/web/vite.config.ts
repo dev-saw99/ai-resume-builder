@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, type Plugin } from "vite";
-import { closeBrowser, renderPdf } from "../../packages/pdf/src/render.mjs";
+import { closeBrowser, PdfError, renderPdf } from "../../packages/pdf/src/render.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "../..");
@@ -54,10 +54,10 @@ function pdfPlugin(): Plugin {
   type Middlewares = { use: (path: string, handler: (req: IncomingMessage, res: ServerResponse) => void) => void };
   const install = (middlewares: Middlewares) => {
     middlewares.use("/api/pdf", async (req, res) => {
-      const fail = (status: number, message: string) => {
+      const fail = (status: number, message: string, code?: string) => {
         res.statusCode = status;
         res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ ok: false, error: message }));
+        res.end(JSON.stringify({ ok: false, error: message, code }));
       };
       if (req.method !== "POST") return fail(405, "Method not allowed");
       try {
@@ -78,7 +78,8 @@ function pdfPlugin(): Plugin {
         res.setHeader("Content-Length", String(pdf.length));
         res.end(pdf);
       } catch (error) {
-        fail(500, (error as Error).message);
+        const code = error instanceof PdfError ? error.code : "RENDER_FAILED";
+        fail(500, (error as Error).message, code);
       }
     });
   };

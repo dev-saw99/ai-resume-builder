@@ -6,6 +6,8 @@ import { existsSync } from "node:fs";
 import { delimiter, join } from "node:path";
 import puppeteer from "puppeteer-core";
 
+// Any Chromium-based browser works (the renderer only needs the Chromium print engine).
+// Order = preference: Chrome, then Chromium, then Brave, then Edge.
 const CHROME_NAMES = [
   "google-chrome-stable",
   "google-chrome",
@@ -13,25 +15,63 @@ const CHROME_NAMES = [
   "chromium-browser",
   "chrome",
   "brave-browser",
+  "brave-browser-stable",
+  "brave",
   "microsoft-edge",
+  "microsoft-edge-stable",
 ];
 
-const MAC_CHROME = [
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  "/Applications/Chromium.app/Contents/MacOS/Chromium",
-];
+/** Well-known install locations that are usually NOT on PATH (macOS, Windows, Linux). */
+function knownLocations() {
+  const win = [process.env.PROGRAMFILES, process.env["PROGRAMFILES(X86)"], process.env.LOCALAPPDATA]
+    .filter(Boolean)
+    .flatMap((base) => [
+      join(base, "Google", "Chrome", "Application", "chrome.exe"),
+      join(base, "Chromium", "Application", "chrome.exe"),
+      join(base, "Microsoft", "Edge", "Application", "msedge.exe"),
+      join(base, "BraveSoftware", "Brave-Browser", "Application", "brave.exe"),
+    ]);
+  return [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+    "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+    "/opt/google/chrome/chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+    "/snap/bin/chromium",
+    // Brave (deb/rpm install, Arch package, snap)
+    "/opt/brave.com/brave/brave-browser",
+    "/opt/brave.com/brave/brave",
+    "/usr/bin/brave-browser",
+    "/usr/bin/brave",
+    "/snap/bin/brave",
+    ...win,
+  ];
+}
 
-/** Locate a Chrome/Chromium binary: $CHROME_PATH, then PATH, then macOS app bundles. */
+/** Locate a Chromium-based browser (Chrome, Chromium, Brave, Edge): $CHROME_PATH, then PATH, then well-known install locations. */
 export function findChrome() {
   const fromEnv = process.env.CHROME_PATH || process.env.PUPPETEER_EXECUTABLE_PATH;
   if (fromEnv && existsSync(fromEnv)) return fromEnv;
   for (const dir of (process.env.PATH ?? "").split(delimiter)) {
     for (const name of CHROME_NAMES) {
-      const candidate = join(dir, name);
-      if (existsSync(candidate)) return candidate;
+      for (const candidate of [join(dir, name), join(dir, `${name}.exe`)]) {
+        if (existsSync(candidate)) return candidate;
+      }
     }
   }
-  return MAC_CHROME.find((path) => existsSync(path)) ?? null;
+  return knownLocations().find((path) => existsSync(path)) ?? null;
+}
+
+/** Error with a machine-readable `code` so the UI can explain what to do. */
+export class PdfError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.name = "PdfError";
+    this.code = code;
+  }
 }
 
 let browserPromise = null;
@@ -40,13 +80,16 @@ async function getBrowser() {
   if (!browserPromise) {
     const executablePath = findChrome();
     if (!executablePath) {
-      throw new Error("No Chrome/Chromium found. Install one or set CHROME_PATH=/path/to/chrome.");
+      throw new PdfError(
+        "NO_CHROME",
+        "No Chrome, Chromium, Brave or Edge found. Install one, or set CHROME_PATH to its executable.",
+      );
     }
     browserPromise = puppeteer
       .launch({ executablePath, headless: true, args: ["--no-sandbox", "--disable-gpu"] })
       .catch((error) => {
         browserPromise = null;
-        throw error;
+        throw new PdfError("LAUNCH_FAILED", `Could not start ${executablePath}: ${error.message}`);
       });
   }
   return browserPromise;
@@ -98,10 +141,12 @@ export async function renderPdf({ baseUrl, resume, theme, font, bg, paper = "a4"
     // A4 at 96 dpi; the print view lays out to the paper width regardless.
     await page.setViewport({ width: paper === "letter" ? 816 : 794, height: 1123 });
     await page.emulateMediaType("print");
-    // Web fonts come from Google Fonts; don't hang forever if we're offline.
-    await page.goto(url.toString(), { waitUntil: "networkidle0", timeout: 30000 }).catch(() => {});
+    await page.goto(url.toString(), { waitUntil: "load", timeout: 30000 });
     await page.waitForSelector(".resume-page .rb-resume", { timeout: 15000 });
-    await page.evaluate(() => document.fonts.ready);
+    // Web fonts come from Google Fonts: wait for them, but never hang when offline.
+    await page.evaluate(
+      () => Promise.race([document.fonts.ready, new Promise((done) => setTimeout(done, 8000))]),
+    );
 
     const pdf = await page.pdf({
       format: PAPERS[paper] ?? "A4",

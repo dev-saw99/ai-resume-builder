@@ -26,7 +26,7 @@ JSON → Schema (Zod) → Renderer → Theme → HTML / PDF
    ```bash
    npm run pdf -- data/<name>.json --theme <id> [--paper a4|letter] [--margin none|narrow|normal|wide] [--font <id>] [--bg <hex>] [--out me.pdf]
    ```
-   Defaults: A4, normal margins, output next to the JSON file (`data/<name>.pdf`). The **Download PDF** button in the app uses the same renderer; if no Chrome/Chromium is installed (set `CHROME_PATH=/path/to/chrome` if it isn't on `PATH`) it falls back to the browser print dialog. Open the PDF, check page breaks, and iterate.
+   Defaults: A4, normal margins, output next to the JSON file (`data/<name>.pdf`). The **Download PDF** button in the app uses the same renderer; it works with any Chromium-based browser — Chrome, Chromium, Brave or Edge (set `CHROME_PATH=/path/to/browser` if it isn't found automatically). If none is found the app shows why and falls back to the browser print dialog. See the README's Troubleshooting section; on Windows PowerShell set env vars with `$env:NAME="value"; npm run dev`. Open the PDF, check page breaks, and iterate.
 
 ## Tailoring to a job description (JD)
 

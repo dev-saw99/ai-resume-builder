@@ -18,6 +18,7 @@ function EditorApp() {
   const fontId = useAppStore((s) => s.fontId);
   const marginPreset = useAppStore((s) => s.marginPreset);
   const [exporting, setExporting] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const baseName = resume.basics.name.toLowerCase().replace(/\s+/g, "-") + "-resume";
 
@@ -38,7 +39,8 @@ function EditorApp() {
     if (exporting) return;
     setExporting(true);
     try {
-      const done = await downloadServerPdf({
+      setNotice(null);
+      const result = await downloadServerPdf({
         resume,
         theme: themeId,
         font: getFont(fontId).id === "theme" ? null : fontId,
@@ -47,7 +49,11 @@ function EditorApp() {
         margin: marginPreset,
         filename: `${baseName}.pdf`,
       });
-      if (!done) printInBrowser();
+      if (!result.ok) {
+        // Say why, then fall back to the browser's own print dialog.
+        setNotice(`${result.reason} Using your browser's print dialog instead.`);
+        printInBrowser();
+      }
     } finally {
       setExporting(false);
     }
@@ -56,6 +62,25 @@ function EditorApp() {
   return (
     <div className="flex h-dvh flex-col bg-white text-zinc-900">
       <TopBar onPrint={handleDownload} exporting={exporting} />
+      {notice ? (
+        <div
+          role="status"
+          className="app-chrome flex items-start gap-3 border-b border-amber-300/60 bg-amber-50 px-4 py-2 text-xs text-amber-900 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-200"
+        >
+          <span className="flex-1">
+            <strong className="font-semibold">PDF renderer unavailable.</strong> {notice} See{" "}
+            <em>Troubleshooting</em> in the README to enable one-click PDFs.
+          </span>
+          <button
+            type="button"
+            onClick={() => setNotice(null)}
+            aria-label="Dismiss"
+            className="rounded px-1.5 text-base leading-none hover:bg-amber-200/60 dark:hover:bg-amber-500/20"
+          >
+            ×
+          </button>
+        </div>
+      ) : null}
       <main className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[minmax(360px,2fr)_minmax(0,3fr)_auto] md:grid-rows-1">
         {/* Mobile: preview only. Desktop: split view. */}
         <div className="app-chrome hidden min-h-0 md:block">
