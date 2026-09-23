@@ -53,7 +53,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   schemaErrors: [],
   saveStatus: "idle",
   saveMessage: null,
-  themeId: params.get("theme") ?? "violet",
+  themeId: params.get("theme") ?? "google",
   fontId: params.get("font") ?? "theme",
   bgColor: params.get("bg") ? `#${params.get("bg")!.replace(/^#/, "")}` : null,
   paperSize: "a4",

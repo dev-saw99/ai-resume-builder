@@ -4,6 +4,30 @@
 
 body {
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Preview pane: soft dotted canvas behind the paper. */
+.preview-scroll {
+  background-color: #f4f4f5;
+  background-image: radial-gradient(#d4d4d8 1px, transparent 1px);
+  background-size: 18px 18px;
+  scroll-behavior: smooth;
+}
+
+/* Theme strip: slim scrollbar, no layout jump. */
+.theme-strip {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-scroll {
+    scroll-behavior: auto;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* JSON editor syntax highlighting. */

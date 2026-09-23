@@ -48,7 +48,7 @@ export function Preview({ pageRef }: { pageRef: RefObject<HTMLDivElement | null>
       <div className="preview-zoom" style={{ zoom: scale }}>
         <div
           ref={pageRef}
-          className="resume-page mx-auto shadow-[0_1px_3px_rgba(0,0,0,0.1),0_8px_24px_rgba(0,0,0,0.08)]"
+          className="resume-page mx-auto shadow-[0_1px_2px_rgba(0,0,0,0.08),0_12px_40px_-8px_rgba(24,24,27,0.25)] ring-1 ring-black/5"
           style={
             {
               width: paper.width,

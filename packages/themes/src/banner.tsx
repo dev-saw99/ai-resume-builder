@@ -10,6 +10,7 @@ export const banner: Theme = {
   id: "banner",
   name: "Banner",
   className: "theme-banner",
+  previewHint: "banner",
   tokens: {
     colors: {
       primary: "#4f46e5",

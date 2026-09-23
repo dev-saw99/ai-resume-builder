@@ -31,7 +31,7 @@ Open the app, edit the JSON on the left, watch the preview update instantly. Pic
 | `packages/schema` | Zod schema, TypeScript types, `validateResume`, section ordering, JSON Schema generator |
 | `packages/ui` | Theme contract (`Theme`, `DesignTokens`), typed section components, base CSS |
 | `packages/renderer` | `<ResumeRenderer data={...} theme={...} />` |
-| `packages/themes` | 27 themes — see [Themes](#themes) |
+| `packages/themes` | 15 themes — see [Themes](#themes) |
 | `packages/pdf` | `useResumePdf` print hook, paper sizes (A4 / Letter) |
 | `apps/web` | Vite + React 19 + Tailwind v4 + Zustand editor app |
 | `examples/` | Example resume JSON |
@@ -65,10 +65,26 @@ The file is generated from the Zod schema, so never edit it by hand — run `npm
 
 | Kind | Themes |
 | --- | --- |
-| Single column | Minimal, Linear, GitHub, Stripe, Notion, Apple, Violet, Executive, Academic, Mono, Ivory, Editorial, Google, Anthropic, OpenAI, Netflix, Meta, xAI |
+| Single column | Google, Anthropic, OpenAI, Netflix, Meta, xAI |
 | Two column | Atlas (right sidebar), Ocean (tinted right panel), Slate (dark left sidebar with monogram + contact), Nordic (frosted left sidebar) |
-| Graphical | Banner (gradient header card), Timeline (vertical rail with dots), Sunset (gradient accents) — Ocean, Slate, Banner, Midnight and Sunset also render skills as chips |
+| Graphical | Banner (gradient header card), Timeline (vertical rail with dots), Sunset (gradient accents) — the two-column, graphical and dark themes also render skills as chips |
 | Dark | Midnight, Terminal (backgrounds are printed into the PDF) |
+
+### Gallery
+
+Every theme rendering [`examples/sonu.json`](examples/sonu.json) (screenshots are in [`screenshots/`](screenshots)).
+
+| **Google** | **Anthropic** | **OpenAI** |
+| --- | --- | --- |
+| <img src="screenshots/google.png" width="260" alt="Google theme"> | <img src="screenshots/anthropic.png" width="260" alt="Anthropic theme"> | <img src="screenshots/openai.png" width="260" alt="OpenAI theme"> |
+| **Atlas** | **Ocean** | **Slate** |
+| <img src="screenshots/atlas.png" width="260" alt="Atlas theme"> | <img src="screenshots/ocean.png" width="260" alt="Ocean theme"> | <img src="screenshots/slate.png" width="260" alt="Slate theme"> |
+| **Nordic** | **Banner** | **Timeline** |
+| <img src="screenshots/nordic.png" width="260" alt="Nordic theme"> | <img src="screenshots/banner.png" width="260" alt="Banner theme"> | <img src="screenshots/timeline.png" width="260" alt="Timeline theme"> |
+| **Sunset** | **Midnight** | **Terminal** |
+| <img src="screenshots/sunset.png" width="260" alt="Sunset theme"> | <img src="screenshots/midnight.png" width="260" alt="Midnight theme"> | <img src="screenshots/terminal.png" width="260" alt="Terminal theme"> |
+| **Netflix** | **Meta** | **xAI** |
+| <img src="screenshots/netflix.png" width="260" alt="Netflix theme"> | <img src="screenshots/meta.png" width="260" alt="Meta theme"> | <img src="screenshots/xai.png" width="260" alt="xAI theme"> |
 
 ## Writing a theme
 

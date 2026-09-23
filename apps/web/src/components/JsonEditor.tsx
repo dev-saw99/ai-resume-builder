@@ -24,23 +24,27 @@ export function JsonEditor() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-zinc-950">
-      <div className="flex items-center justify-between border-b border-zinc-800 px-3 py-1.5">
-        <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+    <div className="flex h-full flex-col bg-[#0b0d12]">
+      <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-3 py-2">
+        <span className="flex items-center gap-2 text-xs font-medium text-zinc-300">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-amber-400" />
           resume.json
+          <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] font-normal text-zinc-500">
+            schema-validated
+          </span>
         </span>
         <div className="flex items-center gap-1">
           <button
             onClick={formatJson}
-            className="rounded px-2 py-0.5 text-[11px] text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+            className="rounded-md px-2 py-1 text-[11px] text-zinc-400 outline-none hover:bg-white/10 hover:text-zinc-100 focus-visible:ring-2 focus-visible:ring-indigo-400"
           >
             Format
           </button>
           <button
             onClick={saveJson}
             disabled={parseError !== null || saveStatus === "saving"}
-            title={parseError ? "Fix JSON errors before saving" : "Format and save to examples/sonu.json"}
-            className="rounded bg-emerald-600 px-2 py-0.5 text-[11px] font-medium text-white hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
+            title={parseError ? "Fix JSON errors before saving" : "Format and save (Ctrl/⌘+S)"}
+            className="rounded-md bg-emerald-600 px-2.5 py-1 text-[11px] font-medium text-white outline-none hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-300 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
           >
             {saveStatus === "saving" ? "Saving…" : "Save"}
           </button>
@@ -58,6 +62,13 @@ export function JsonEditor() {
           value={jsonText}
           onChange={(e) => setJsonText(e.target.value)}
           onScroll={syncScroll}
+          onKeyDown={(e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
+              e.preventDefault();
+              void saveJson();
+            }
+          }}
+          aria-label="Resume JSON"
           spellCheck={false}
           className="absolute inset-0 resize-none whitespace-pre-wrap break-words bg-transparent p-3 font-mono text-[12px] leading-relaxed text-transparent caret-zinc-200 outline-none"
         />
@@ -86,7 +97,7 @@ export function JsonEditor() {
           <p className="text-[11px] text-red-400">✗ {saveMessage}</p>
         </div>
       ) : (
-        <div className="border-t border-zinc-800 px-3 py-1.5">
+        <div className="border-t border-white/5 px-3 py-1.5">
           <p className="text-[11px] text-emerald-500">✓ Valid resume</p>
         </div>
       )}

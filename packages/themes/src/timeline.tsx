@@ -10,6 +10,7 @@ export const timeline: Theme = {
   id: "timeline",
   name: "Timeline",
   className: "theme-timeline",
+  previewHint: "timeline",
   tokens: {
     colors: {
       primary: "#e11d48",
