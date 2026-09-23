@@ -1,5 +1,61 @@
 @import "tailwindcss";
 
+/* Dark mode is class-based (`html.dark`), toggled from the top bar. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Dark palette: instead of sprinkling `dark:` variants everywhere, invert the
+ * zinc scale (and soften indigo) so every existing utility flips automatically.
+ * Screen only — print output must stay light.
+ */
+@media screen {
+  .dark {
+    color-scheme: dark;
+    --color-white: #131316;
+    --color-zinc-50: #1c1c20;
+    --color-zinc-100: #27272a;
+    --color-zinc-200: #33333a;
+    --color-zinc-300: #45454d;
+    --color-zinc-400: #71717b;
+    --color-zinc-500: #a1a1aa;
+    --color-zinc-600: #b4b4bd;
+    --color-zinc-700: #d4d4d8;
+    --color-zinc-800: #e4e4e7;
+    --color-zinc-900: #fafafa;
+    --color-indigo-50: #23214f;
+    --color-indigo-200: #4740a6;
+    --color-indigo-300: #5c55d1;
+    --color-indigo-600: #a5b4fc;
+    --color-indigo-700: #c7d2fe;
+  }
+
+  /* The JSON editor is always dark and was written against the normal zinc scale. */
+  .dark .json-editor {
+    --color-white: #ffffff;
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f4f4f5;
+    --color-zinc-200: #e4e4e7;
+    --color-zinc-300: #d4d4d8;
+    --color-zinc-400: #9f9fa9;
+    --color-zinc-500: #71717b;
+    --color-zinc-600: #52525c;
+    --color-zinc-700: #3f3f47;
+    --color-zinc-800: #27272a;
+    --color-zinc-900: #18181b;
+    --color-indigo-200: #c7d2fe;
+    --color-indigo-300: #a5b4fc;
+  }
+
+  .dark .preview-scroll {
+    background-color: #0c0c0f;
+    background-image: radial-gradient(#26262c 1px, transparent 1px);
+  }
+
+  .dark .theme-strip {
+    scrollbar-color: #45454d transparent;
+  }
+}
+
 /* Inter for Linear/Minimal themes; falls back to system sans offline. */
 
 body {

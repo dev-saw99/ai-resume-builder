@@ -3,28 +3,29 @@ import { defaultComponents } from "@resume/ui";
 import { MonogramHeader, SkillChips } from "./shared";
 
 /**
- * Slate — two-column with a dark left sidebar: monogram, name, contact,
- * skill chips, education. Summary and experience fill the light main column.
+ * Indigo — two-column with a saturated indigo→violet sidebar holding the
+ * monogram, contact and skills; airy white main column.
  */
-export const slate: Theme = {
-  id: "slate",
-  name: "Slate",
-  className: "theme-slate",
+export const indigo: Theme = {
+  id: "indigo",
+  name: "Indigo",
+  className: "theme-indigo",
   sidebar: ["skills", "education", "certifications", "languages", "interests", "awards"],
   sidebarPosition: "left",
   headerInSidebar: true,
+  previewHint: "colorSidebar",
   tokens: {
     colors: {
-      primary: "#0f766e",
-      text: "#1e293b",
-      muted: "#475569",
-      faint: "#94a3b8",
-      border: "#e2e8f0",
+      primary: "#4f46e5",
+      text: "#1e1b4b",
+      muted: "#4b5563",
+      faint: "#9ca3af",
+      border: "#e0e7ff",
       background: "#ffffff",
     },
     font: {
-      body: "'Inter', 'Helvetica Neue', Arial, sans-serif",
-      heading: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+      body: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif",
+      heading: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif",
       mono: "'JetBrains Mono', 'SF Mono', Menlo, monospace",
     },
     fontSize: {
@@ -44,7 +45,7 @@ export const slate: Theme = {
       medium: "7pt",
       small: "4pt",
     },
-    radius: "8px",
+    radius: "10px",
     lineHeight: "1.5",
     headingLetterSpacing: "0.14em",
     headingTransform: "uppercase",

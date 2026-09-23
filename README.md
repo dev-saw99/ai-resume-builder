@@ -15,7 +15,9 @@ npm install
 npm run dev
 ```
 
-Open the app, edit the JSON on the left, watch the preview update instantly. Pick a theme, pick a paper size, click **Download PDF**.
+Open the app, edit the JSON on the left, watch the preview update instantly. Use your own resume with `RESUME_FILE=data/me.json npm run dev` (the `data/` folder is git-ignored). The header has a light/dark toggle for the app UI, and the right-hand sidebar switches themes live (arrow keys, or `[` / `]`). Pick a theme, pick a paper size, click **Download PDF**.
+
+> **Using an AI agent?** See [`AGENTS.md`](AGENTS.md) — a step-by-step guide for creating a resume with this project.
 
 ## Why this architecture
 
@@ -31,7 +33,7 @@ Open the app, edit the JSON on the left, watch the preview update instantly. Pic
 | `packages/schema` | Zod schema, TypeScript types, `validateResume`, section ordering, JSON Schema generator |
 | `packages/ui` | Theme contract (`Theme`, `DesignTokens`), typed section components, base CSS |
 | `packages/renderer` | `<ResumeRenderer data={...} theme={...} />` |
-| `packages/themes` | 15 themes — see [Themes](#themes) |
+| `packages/themes` | 29 themes — see [Themes](#themes) |
 | `packages/pdf` | `useResumePdf` print hook, paper sizes (A4 / Letter) |
 | `apps/web` | Vite + React 19 + Tailwind v4 + Zustand editor app |
 | `examples/` | Example resume JSON |
@@ -66,9 +68,9 @@ The file is generated from the Zod schema, so never edit it by hand — run `npm
 | Kind | Themes |
 | --- | --- |
 | Single column | Google, Anthropic, OpenAI, Netflix, Meta, xAI |
-| Two column | Atlas (right sidebar), Ocean (tinted right panel), Slate (dark left sidebar with monogram + contact), Nordic (frosted left sidebar) |
-| Graphical | Banner (gradient header card), Timeline (vertical rail with dots), Sunset (gradient accents) — the two-column, graphical and dark themes also render skills as chips |
-| Dark | Midnight, Terminal (backgrounds are printed into the PDF) |
+| Two column | Atlas, Ocean (tinted right panel), Slate (dark left sidebar + monogram), Nordic (frosted left sidebar), Indigo (gradient sidebar), Coral, Parchment (serif, warm) |
+| Graphical | Banner (gradient header card), Timeline (rail + dots), Sunset, Aurora (mesh gradient), Cards (each section a card), Bauhaus (geometric shapes), Brutalist (hard shadows), Blueprint (gridded title block) |
+| Dark | Midnight, Terminal, Dracula, Obsidian (gold on black), Synthwave (neon), Forest, Eclipse (2-col), Twilight (2-col), Blueprint — backgrounds are printed into the PDF |
 
 ### Gallery
 
@@ -77,14 +79,24 @@ Every theme rendering [`examples/sonu.json`](examples/sonu.json) (screenshots ar
 | **Google** | **Anthropic** | **OpenAI** |
 | --- | --- | --- |
 | <img src="screenshots/google.png" width="260" alt="Google theme"> | <img src="screenshots/anthropic.png" width="260" alt="Anthropic theme"> | <img src="screenshots/openai.png" width="260" alt="OpenAI theme"> |
-| **Atlas** | **Ocean** | **Slate** |
-| <img src="screenshots/atlas.png" width="260" alt="Atlas theme"> | <img src="screenshots/ocean.png" width="260" alt="Ocean theme"> | <img src="screenshots/slate.png" width="260" alt="Slate theme"> |
-| **Nordic** | **Banner** | **Timeline** |
-| <img src="screenshots/nordic.png" width="260" alt="Nordic theme"> | <img src="screenshots/banner.png" width="260" alt="Banner theme"> | <img src="screenshots/timeline.png" width="260" alt="Timeline theme"> |
-| **Sunset** | **Midnight** | **Terminal** |
-| <img src="screenshots/sunset.png" width="260" alt="Sunset theme"> | <img src="screenshots/midnight.png" width="260" alt="Midnight theme"> | <img src="screenshots/terminal.png" width="260" alt="Terminal theme"> |
 | **Netflix** | **Meta** | **xAI** |
 | <img src="screenshots/netflix.png" width="260" alt="Netflix theme"> | <img src="screenshots/meta.png" width="260" alt="Meta theme"> | <img src="screenshots/xai.png" width="260" alt="xAI theme"> |
+| **Atlas** | **Ocean** | **Slate** |
+| <img src="screenshots/atlas.png" width="260" alt="Atlas theme"> | <img src="screenshots/ocean.png" width="260" alt="Ocean theme"> | <img src="screenshots/slate.png" width="260" alt="Slate theme"> |
+| **Nordic** | **Indigo** | **Coral** |
+| <img src="screenshots/nordic.png" width="260" alt="Nordic theme"> | <img src="screenshots/indigo.png" width="260" alt="Indigo theme"> | <img src="screenshots/coral.png" width="260" alt="Coral theme"> |
+| **Parchment** | **Banner** | **Timeline** |
+| <img src="screenshots/parchment.png" width="260" alt="Parchment theme"> | <img src="screenshots/banner.png" width="260" alt="Banner theme"> | <img src="screenshots/timeline.png" width="260" alt="Timeline theme"> |
+| **Sunset** | **Aurora** | **Cards** |
+| <img src="screenshots/sunset.png" width="260" alt="Sunset theme"> | <img src="screenshots/aurora.png" width="260" alt="Aurora theme"> | <img src="screenshots/cards.png" width="260" alt="Cards theme"> |
+| **Bauhaus** | **Brutalist** | **Blueprint** |
+| <img src="screenshots/bauhaus.png" width="260" alt="Bauhaus theme"> | <img src="screenshots/brutalist.png" width="260" alt="Brutalist theme"> | <img src="screenshots/blueprint.png" width="260" alt="Blueprint theme"> |
+| **Midnight** | **Terminal** | **Dracula** |
+| <img src="screenshots/midnight.png" width="260" alt="Midnight theme"> | <img src="screenshots/terminal.png" width="260" alt="Terminal theme"> | <img src="screenshots/dracula.png" width="260" alt="Dracula theme"> |
+| **Obsidian** | **Synthwave** | **Forest** |
+| <img src="screenshots/obsidian.png" width="260" alt="Obsidian theme"> | <img src="screenshots/synthwave.png" width="260" alt="Synthwave theme"> | <img src="screenshots/forest.png" width="260" alt="Forest theme"> |
+| **Eclipse** | **Twilight** |   |
+| <img src="screenshots/eclipse.png" width="260" alt="Eclipse theme"> | <img src="screenshots/twilight.png" width="260" alt="Twilight theme"> |   |
 
 ## Writing a theme
 
@@ -113,6 +125,7 @@ npm run dev        # start the editor app
 npm run build      # production build
 npm run typecheck  # tsc across the whole monorepo
 npm run schema:generate  # regenerate resume.schema.json from the Zod schema
+npm run validate -- data/me.json  # validate a resume file from the CLI
 ```
 
 ## Roadmap

@@ -6,7 +6,8 @@ import { useAppStore } from "../store";
 /** Miniature wireframe of a theme, drawn from its tokens and layout. */
 function ThemeThumb({ theme }: { theme: Theme }) {
   const { colors } = theme.tokens;
-  const dark = theme.headerInSidebar ? false : isDark(colors.background);
+  const dark = isDark(colors.background);
+  const hint = theme.previewHint;
   const side = theme.sidebar?.length ? (theme.sidebarPosition === "left" ? "left" : "right") : null;
   const mainX = side === "left" ? 24 : 6;
   const mainW = side ? 30 : 48;
@@ -20,10 +21,10 @@ function ThemeThumb({ theme }: { theme: Theme }) {
       <rect width="60" height="80" fill={colors.background} />
       {theme.headerInSidebar ? (
         <>
-          <rect x="3" y="3" width="19" height="74" rx="3" fill="#0f172a" />
-          <circle cx="12.5" cy="12" r="4.2" fill={colors.primary} />
+          <rect x="3" y="3" width="19" height="74" rx="3" fill={hint === "colorSidebar" ? colors.primary : dark ? "#1e293b" : "#0f172a"} />
+          <circle cx="12.5" cy="12" r="4.2" fill={hint === "colorSidebar" ? "#fff" : colors.primary} />
           <rect x="6.5" y="20" width="12" height="2.6" rx="1.3" fill="#fff" />
-          <rect x="6.5" y="25" width="9" height="1.6" rx="0.8" fill={colors.primary} />
+          <rect x="6.5" y="25" width="9" height="1.6" rx="0.8" fill={hint === "colorSidebar" ? "#c7d2fe" : colors.primary} />
           {[34, 40, 46, 56].map((y) => (
             <rect key={y} x="6.5" y={y} width={y % 12 ? 10 : 12} height="1.6" rx="0.8" fill="#94a3b8" opacity="0.8" />
           ))}
@@ -38,6 +39,36 @@ function ThemeThumb({ theme }: { theme: Theme }) {
         </>
       ) : (
         <>
+          {hint === "mesh" ? (
+            <>
+              <defs>
+                <linearGradient id="thumb-mesh" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#c7d2fe" />
+                  <stop offset="1" stopColor="#fbcfe8" />
+                </linearGradient>
+              </defs>
+              <rect x="4" y="4" width="52" height="17" rx="3" fill="url(#thumb-mesh)" />
+            </>
+          ) : null}
+          {hint === "cards"
+            ? [26, 46, 62].map((top) => (
+                <rect key={top} x="3.5" y={top - 3} width="53" height={top === 62 ? 16 : 17} rx="2.5" fill="#fff" stroke={colors.border} strokeWidth="0.6" />
+              ))
+            : null}
+          {hint === "frame" ? (
+            <>
+              <rect x="7.5" y="5.5" width="46" height="13" fill={colors.text} />
+              <rect x="6" y="4" width="46" height="13" fill="#ffde59" stroke={colors.text} strokeWidth="1.2" />
+            </>
+          ) : null}
+          {hint === "shapes" ? (
+            <>
+              <circle cx="38" cy="9" r="3.2" fill="#d62828" />
+              <rect x="43" y="5.8" width="6.4" height="6.4" fill="#f4b400" />
+              <polygon points="50.5,12.2 57,12.2 57,5.8" fill="#1d4ed8" />
+              <rect x="4" y="20" width="52" height="1.2" fill={colors.text} />
+            </>
+          ) : null}
           {theme.previewHint === "banner" ? (
             <rect x="4" y="4" width="52" height="17" rx="3" fill={colors.primary} />
           ) : null}

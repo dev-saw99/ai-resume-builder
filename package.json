@@ -2,7 +2,7 @@
   "name": "resume-builder",
   "private": true,
   "version": "0.1.0",
-  "description": "Developer-focused resume builder — resumes as code. JSON in, beautiful ATS-friendly PDF out.",
+  "description": "Developer-focused resume builder \u2014 resumes as code. JSON in, beautiful ATS-friendly PDF out.",
   "license": "MIT",
   "workspaces": [
     "apps/*",
@@ -13,7 +13,8 @@
     "build": "npm run build --workspace=@resume/web",
     "preview": "npm run preview --workspace=@resume/web",
     "typecheck": "tsc --noEmit",
-    "schema:generate": "node packages/schema/scripts/generate-json-schema.mjs"
+    "schema:generate": "node packages/schema/scripts/generate-json-schema.mjs",
+    "validate": "node packages/schema/scripts/validate.mjs"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

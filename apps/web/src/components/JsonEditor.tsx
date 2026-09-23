@@ -24,7 +24,7 @@ export function JsonEditor() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-[#0b0d12]">
+    <div className="json-editor flex h-full flex-col bg-[#0b0d12]">
       <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-3 py-2">
         <span className="flex items-center gap-2 text-xs font-medium text-zinc-300">
           <span aria-hidden="true" className="h-2 w-2 rounded-full bg-amber-400" />
@@ -43,7 +43,7 @@ export function JsonEditor() {
           <button
             onClick={saveJson}
             disabled={parseError !== null || saveStatus === "saving"}
-            title={parseError ? "Fix JSON errors before saving" : "Format and save (Ctrl/⌘+S)"}
+            title={parseError ? "Fix JSON errors before saving" : `Format and save to ${__RESUME_FILE__} (Ctrl/⌘+S)`}
             className="rounded-md bg-emerald-600 px-2.5 py-1 text-[11px] font-medium text-white outline-none hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-300 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
           >
             {saveStatus === "saving" ? "Saving…" : "Save"}

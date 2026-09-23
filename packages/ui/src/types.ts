@@ -137,7 +137,7 @@ export interface Theme {
   /** Render the Header inside the sidebar instead of across the top. */
   headerInSidebar?: boolean;
   /** Hint for the theme picker's thumbnail; has no effect on rendering. */
-  previewHint?: "banner" | "timeline";
+  previewHint?: "banner" | "timeline" | "cards" | "frame" | "shapes" | "mesh" | "colorSidebar";
 }
 
 /** Flatten tokens into `--rb-*` CSS custom properties. */

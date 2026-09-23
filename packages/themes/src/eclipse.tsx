@@ -3,24 +3,24 @@ import { defaultComponents } from "@resume/ui";
 import { MonogramHeader, SkillChips } from "./shared";
 
 /**
- * Slate — two-column with a dark left sidebar: monogram, name, contact,
- * skill chips, education. Summary and experience fill the light main column.
+ * Eclipse — dark two-column: monogram, name and contacts in a left sidebar
+ * panel, orange accents on GitHub-dark.
  */
-export const slate: Theme = {
-  id: "slate",
-  name: "Slate",
-  className: "theme-slate",
+export const eclipse: Theme = {
+  id: "eclipse",
+  name: "Eclipse",
+  className: "theme-eclipse",
   sidebar: ["skills", "education", "certifications", "languages", "interests", "awards"],
   sidebarPosition: "left",
   headerInSidebar: true,
   tokens: {
     colors: {
-      primary: "#0f766e",
-      text: "#1e293b",
-      muted: "#475569",
-      faint: "#94a3b8",
-      border: "#e2e8f0",
-      background: "#ffffff",
+      primary: "#f0883e",
+      text: "#e6edf3",
+      muted: "#a8b3bf",
+      faint: "#6e7681",
+      border: "#30363d",
+      background: "#0d1117",
     },
     font: {
       body: "'Inter', 'Helvetica Neue', Arial, sans-serif",
@@ -28,7 +28,7 @@ export const slate: Theme = {
       mono: "'JetBrains Mono', 'SF Mono', Menlo, monospace",
     },
     fontSize: {
-      displayXl: "20pt",
+      displayXl: "21pt",
       display: "16pt",
       heading: "9.5pt",
       title: "10.5pt",
@@ -44,7 +44,7 @@ export const slate: Theme = {
       medium: "7pt",
       small: "4pt",
     },
-    radius: "8px",
+    radius: "10px",
     lineHeight: "1.5",
     headingLetterSpacing: "0.14em",
     headingTransform: "uppercase",

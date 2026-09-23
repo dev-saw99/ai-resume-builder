@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type { Resume } from "@resume/schema";
 import { validateResume } from "@resume/schema";
 import type { MarginPreset, PaperSize } from "@resume/pdf";
-import exampleResume from "../../../examples/sonu.json";
+import exampleResume from "@resume-data";
 
 interface ValidationError {
   path: string;
@@ -43,7 +43,7 @@ const params = new URLSearchParams(window.location.search);
 
 const initial = validateResume(exampleResume);
 if (!initial.success) {
-  throw new Error("examples/sonu.json failed schema validation — fix the example");
+  throw new Error(`${__RESUME_FILE__} failed schema validation — run \`npm run validate -- ${__RESUME_FILE__}\``);
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -108,7 +108,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         const body = await response.json().catch(() => null);
         throw new Error(body?.error || `Save failed (${response.status})`);
       }
-      set({ saveStatus: "saved", saveMessage: "Saved to examples/sonu.json" });
+      set({ saveStatus: "saved", saveMessage: `Saved to ${__RESUME_FILE__}` });
     } catch (error) {
       set({ saveStatus: "error", saveMessage: (error as Error).message || "Save failed" });
     }

@@ -1,14 +1,19 @@
 import { writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, type Plugin } from "vite";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const resumeJsonPath = resolve(__dirname, "../../examples/sonu.json");
+const repoRoot = resolve(__dirname, "../..");
+/**
+ * The resume the app loads and Save writes to. Defaults to the bundled example;
+ * override with RESUME_FILE=data/me.json (relative to the repo root, or absolute).
+ */
+const resumeJsonPath = resolve(repoRoot, process.env.RESUME_FILE ?? "examples/sonu.json");
 
-/** Dev-only endpoint so the editor's Save button can write straight to examples/sonu.json. */
+/** Dev-only endpoint so the editor's Save button can write straight to the resume file. */
 function saveResumePlugin(): Plugin {
   return {
     name: "save-resume-json",
@@ -40,4 +45,14 @@ function saveResumePlugin(): Plugin {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), saveResumePlugin()],
+  resolve: {
+    alias: { "@resume-data": resumeJsonPath },
+  },
+  define: {
+    __RESUME_FILE__: JSON.stringify(relative(repoRoot, resumeJsonPath)),
+  },
+  server: {
+    // Allow importing a resume that lives outside apps/web (e.g. data/me.json).
+    fs: { allow: [repoRoot] },
+  },
 });
