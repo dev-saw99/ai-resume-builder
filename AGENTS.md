@@ -111,7 +111,7 @@ Fonts: `&font=<id>` overrides the theme font; ids are in `apps/web/src/fonts.ts`
 | `apps/web` | Editor app (Vite + React + Tailwind v4) |
 | `examples/sonu.json` | Reference resume (must always validate) |
 | `data/` | Git-ignored — put real personal resumes here |
-| `screenshots/` | One PNG per theme (used in the README gallery) |
+| `screenshots/` | One full-page PNG per theme, `thumbs/` 400×500 crops for the README gallery, and `hero.png` |
 
 ## Commands
 
@@ -127,6 +127,6 @@ npm run schema:generate     # regenerate resume.schema.json after editing the Zo
 ## Changing the project itself
 
 - **Schema change:** edit `packages/schema/src/index.ts` (add `.describe()` to every field), then `npm run schema:generate`, update the table above and the README, and keep `examples/sonu.json` valid. Never hand-edit `resume.schema.json`.
-- **New theme:** copy a similar `packages/themes/src/<id>.tsx` (tokens + optional `sidebar`, `sidebarPosition`, `headerInSidebar`, `previewHint`), add per-theme CSS scoped under `.theme-<id>` in `styles.css`, register it in `packages/themes/src/index.ts`, then check it renders (screenshot the `.resume-page` element) and add `screenshots/<id>.png` + a README gallery entry. Themes must never read resume data directly — only typed props via the component contract — and must not change how data is validated.
+- **New theme:** copy a similar `packages/themes/src/<id>.tsx` (tokens + optional `sidebar`, `sidebarPosition`, `headerInSidebar`, `previewHint`), add per-theme CSS scoped under `.theme-<id>` in `styles.css`, register it in `packages/themes/src/index.ts`, then check it renders (screenshot the `.resume-page` element) and add `screenshots/<id>.png` plus a gallery thumbnail (`magick screenshots/<id>.png -crop 1190x1488+0+0 +repage -resize 400x500 -colors 160 screenshots/thumbs/<id>.png`) and an entry in the README gallery (`### Single column / Two column / Graphical / Dark`). Themes must never read resume data directly — only typed props via the component contract — and must not change how data is validated.
 - **Verify:** `npm run typecheck`, `npm run build`, and validate any JSON you touched.
 - Never commit anything from `data/`, and don't put HTML/JSX/styles inside the resume JSON.
