@@ -649,3 +649,653 @@
 .theme-meta .rb-entry-meta {
   color: var(--rb-color-muted);
 }
+
+/* ============ Shared: skill chips ============ */
+
+.rb-chip-groups {
+  display: grid;
+  gap: var(--rb-space-md);
+}
+
+.rb-chip-label {
+  font-size: var(--rb-text-small);
+  font-weight: 600;
+  color: var(--rb-color-text);
+  margin-bottom: 3pt;
+}
+
+.rb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3pt 4pt;
+  list-style: none;
+  padding: 0;
+}
+
+.rb-chip {
+  font-size: var(--rb-text-caption);
+  line-height: 1.3;
+  padding: 1.5pt 6pt;
+  border-radius: 999px;
+  color: var(--rb-color-text);
+  border: 0.75pt solid color-mix(in srgb, var(--rb-color-primary) 35%, var(--rb-color-background));
+  background: color-mix(in srgb, var(--rb-color-primary) 9%, var(--rb-color-background));
+  break-inside: avoid;
+}
+
+/* Narrow sidebars stack entry headers instead of splitting them left/right. */
+:is(.theme-ocean, .theme-slate, .theme-nordic) .rb-aside .rb-section-title {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+:is(.theme-ocean, .theme-slate, .theme-nordic) .rb-aside .rb-entry-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1pt;
+}
+
+:is(.theme-ocean, .theme-slate, .theme-nordic) .rb-aside .rb-entry-aside {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 5pt;
+  text-align: left;
+}
+
+:is(.theme-ocean, .theme-slate, .theme-nordic) .rb-aside .rb-entry-subtitle::before {
+  content: none;
+}
+
+:is(.theme-ocean, .theme-slate, .theme-nordic) .rb-aside .rb-entry-subtitle {
+  display: block;
+}
+
+/* ============ Apple ============ */
+
+.theme-apple a {
+  color: var(--rb-color-primary);
+}
+
+.theme-apple .rb-name {
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+
+.theme-apple .rb-label {
+  color: var(--rb-color-muted);
+  font-weight: 400;
+  font-size: 12pt;
+}
+
+.theme-apple .rb-section-title {
+  color: var(--rb-color-text);
+  font-weight: 600;
+  border-bottom: 0.5pt solid var(--rb-color-border);
+  padding-bottom: 5pt;
+  margin-bottom: var(--rb-space-lg);
+}
+
+.theme-apple .rb-entry-title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.theme-apple .rb-entry-meta {
+  color: var(--rb-color-faint);
+}
+
+.theme-apple .rb-bullets li::marker {
+  color: var(--rb-color-primary);
+}
+
+/* ============ Notion ============ */
+
+.theme-notion .rb-name {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.theme-notion .rb-label {
+  color: var(--rb-color-muted);
+  font-weight: 400;
+}
+
+.theme-notion .rb-section-title {
+  color: var(--rb-color-text);
+  font-weight: 700;
+  border-bottom: 1px solid var(--rb-color-border);
+}
+
+.theme-notion .rb-entry-title {
+  font-weight: 600;
+}
+
+.theme-notion .rb-entry-meta {
+  color: var(--rb-color-muted);
+}
+
+.theme-notion .rb-entry-keywords {
+  color: var(--rb-color-muted);
+  font-size: var(--rb-text-caption);
+}
+
+.theme-notion .rb-skill-name {
+  color: var(--rb-color-muted);
+  font-weight: 500;
+}
+
+/* ============ Academic ============ */
+
+.theme-academic .rb-header {
+  text-align: center;
+  border-bottom: 1.2pt solid var(--rb-color-border);
+  padding-bottom: var(--rb-space-md);
+}
+
+.theme-academic .rb-name {
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.theme-academic .rb-label {
+  color: var(--rb-color-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.theme-academic .rb-section-title {
+  color: var(--rb-color-text);
+  font-variant: small-caps;
+  text-transform: none;
+  font-size: 12pt;
+  letter-spacing: 0.08em;
+  border-bottom: 0.6pt solid var(--rb-color-border);
+}
+
+.theme-academic .rb-entry-meta {
+  font-style: italic;
+}
+
+.theme-academic .rb-entry-title {
+  font-weight: 700;
+}
+
+.theme-academic .rb-entry-subtitle {
+  font-style: italic;
+}
+
+/* ============ Editorial ============ */
+
+.theme-editorial .rb-name {
+  font-family: var(--rb-font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.theme-editorial .rb-label {
+  font-family: var(--rb-font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13pt;
+  color: var(--rb-color-primary);
+}
+
+.theme-editorial .rb-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8pt;
+  font-size: 15pt;
+  font-weight: 600;
+  color: var(--rb-color-text);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.theme-editorial .rb-section-title::after {
+  content: "";
+  flex: 1;
+  height: 0.6pt;
+  background: var(--rb-color-border);
+}
+
+.theme-editorial .rb-entry-title {
+  font-family: var(--rb-font-heading);
+  font-weight: 600;
+}
+
+.theme-editorial .rb-entry-meta {
+  color: var(--rb-color-primary);
+}
+
+.theme-editorial .rb-bullets li::marker {
+  color: var(--rb-color-primary);
+}
+
+/* ============ Ocean ============ */
+
+.theme-ocean .rb-header {
+  border-bottom: 2pt solid var(--rb-color-primary);
+  padding-bottom: var(--rb-space-md);
+}
+
+.theme-ocean .rb-name {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.theme-ocean .rb-label {
+  color: var(--rb-color-primary);
+  font-weight: 700;
+}
+
+.theme-ocean .rb-columns {
+  gap: 6mm;
+  align-items: stretch;
+}
+
+.theme-ocean .rb-aside {
+  width: 58mm;
+  padding: 5mm;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--rb-color-primary) 7%, var(--rb-color-background));
+}
+
+.theme-ocean .rb-aside .rb-chip {
+  background: var(--rb-color-background);
+}
+
+.theme-ocean .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+/* ============ Midnight ============ */
+
+.theme-midnight a {
+  color: var(--rb-color-primary);
+}
+
+.theme-midnight .rb-header {
+  padding-bottom: var(--rb-space-md);
+}
+
+.theme-midnight .rb-header::after {
+  content: "";
+  display: block;
+  height: 1.5pt;
+  margin-top: var(--rb-space-md);
+  background: linear-gradient(90deg, var(--rb-color-primary), transparent);
+}
+
+.theme-midnight .rb-name {
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.theme-midnight .rb-label {
+  color: var(--rb-color-primary);
+}
+
+.theme-midnight .rb-section-title {
+  color: var(--rb-color-primary);
+}
+
+.theme-midnight .rb-entry-title {
+  color: #f8fafc;
+}
+
+.theme-midnight .rb-chip {
+  background: color-mix(in srgb, var(--rb-color-primary) 12%, var(--rb-color-background));
+  border-color: color-mix(in srgb, var(--rb-color-primary) 40%, var(--rb-color-background));
+  color: #e2e8f0;
+}
+
+.theme-midnight .rb-bullets strong,
+.theme-midnight .rb-summary strong {
+  color: #f8fafc;
+}
+
+/* ============ Terminal ============ */
+
+.theme-terminal .rb-name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
+}
+
+.theme-terminal .rb-name::before {
+  content: "$ ";
+  color: var(--rb-color-primary);
+}
+
+.theme-terminal .rb-name::after {
+  content: "\2588";
+  color: var(--rb-color-primary);
+  margin-left: 0.15em;
+}
+
+.theme-terminal .rb-label {
+  color: var(--rb-color-faint);
+  font-weight: 400;
+}
+
+.theme-terminal .rb-label::before {
+  content: "# ";
+}
+
+.theme-terminal .rb-section-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  font-weight: 700;
+}
+
+.theme-terminal .rb-section-title::before {
+  content: "## ";
+  color: var(--rb-color-faint);
+}
+
+.theme-terminal .rb-entry-title {
+  color: #f5f5f5;
+}
+
+.theme-terminal .rb-entry-meta {
+  color: var(--rb-color-primary);
+}
+
+.theme-terminal .rb-bullets {
+  list-style: "- ";
+}
+
+.theme-terminal .rb-skill-name {
+  color: var(--rb-color-primary);
+}
+
+/* ============ Sunset ============ */
+
+.theme-sunset .rb-header {
+  padding-bottom: var(--rb-space-md);
+}
+
+.theme-sunset .rb-header::after {
+  content: "";
+  display: block;
+  height: 3pt;
+  border-radius: 3pt;
+  margin-top: var(--rb-space-md);
+  background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6);
+}
+
+.theme-sunset .rb-name {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(90deg, #ea580c, #db2777);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--rb-color-primary);
+  width: fit-content;
+}
+
+.theme-sunset .rb-label {
+  color: var(--rb-color-muted);
+}
+
+.theme-sunset .rb-section-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  font-weight: 700;
+  color: var(--rb-color-text);
+}
+
+.theme-sunset .rb-section-title::before {
+  content: "";
+  display: inline-block;
+  width: 7pt;
+  height: 7pt;
+  border-radius: 50%;
+  margin-right: 6pt;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+}
+
+.theme-sunset .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 500;
+}
+
+.theme-sunset .rb-chip {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+/* ============ Banner ============ */
+
+.theme-banner .rb-header {
+  background: linear-gradient(120deg, #4f46e5, #7c3aed 60%, #c026d3);
+  border-radius: 10px;
+  padding: 8mm 8mm 7mm;
+  margin-bottom: var(--rb-space-lg);
+}
+
+.theme-banner .rb-name,
+.theme-banner .rb-header a {
+  color: #ffffff;
+}
+
+.theme-banner .rb-name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.theme-banner .rb-label {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 500;
+}
+
+.theme-banner .rb-contact {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.theme-banner .rb-contact-item + .rb-contact-item::before {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.theme-banner .rb-section-title {
+  color: var(--rb-color-text);
+  border-bottom: none;
+  border-left: 3pt solid var(--rb-color-primary);
+  padding: 0 0 0 7pt;
+  line-height: 1.1;
+}
+
+.theme-banner .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+.theme-banner .rb-chip {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+/* ============ Timeline ============ */
+
+.theme-timeline .rb-name {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.theme-timeline .rb-label {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+.theme-timeline .rb-section-title {
+  color: var(--rb-color-text);
+  border-bottom: none;
+  padding-bottom: 0;
+  font-weight: 800;
+}
+
+:is(.rb-slot-experience, .rb-slot-education, .rb-slot-projects) .rb-entry {
+  position: relative;
+}
+
+.theme-timeline :is(.rb-slot-experience, .rb-slot-education, .rb-slot-projects) .rb-entry,
+.theme-timeline :is(.rb-slot-experience, .rb-slot-education, .rb-slot-projects) .rb-entry + .rb-entry {
+  border-top: none;
+  border-left: 1.4pt solid var(--rb-color-border);
+  padding: 0 0 var(--rb-space-item) 14pt;
+  margin: 0 0 0 3pt;
+}
+
+.theme-timeline :is(.rb-slot-experience, .rb-slot-education, .rb-slot-projects) .rb-entry:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+.theme-timeline :is(.rb-slot-experience, .rb-slot-education, .rb-slot-projects) .rb-entry::before {
+  content: "";
+  position: absolute;
+  left: -4.6pt;
+  top: 2.5pt;
+  width: 7pt;
+  height: 7pt;
+  border-radius: 50%;
+  background: var(--rb-color-background);
+  border: 1.8pt solid var(--rb-color-primary);
+}
+
+.theme-timeline .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+/* ============ Slate ============ */
+
+.theme-slate .rb-columns {
+  gap: 6mm;
+  align-items: stretch;
+}
+
+.theme-slate .rb-aside {
+  width: 62mm;
+  padding: 8mm 6mm;
+  border-radius: 10px;
+  background: #0f172a;
+  /* Re-skin the tokens inside the dark panel. */
+  --rb-color-text: #e2e8f0;
+  --rb-color-muted: #cbd5e1;
+  --rb-color-faint: #94a3b8;
+  --rb-color-primary: #5eead4;
+  --rb-color-border: #334155;
+  --rb-color-background: #0f172a;
+  color: var(--rb-color-text);
+}
+
+.theme-slate .rb-aside .rb-header {
+  text-align: left;
+  margin-bottom: var(--rb-space-lg);
+}
+
+.theme-slate .rb-aside .rb-name {
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.theme-slate .rb-aside .rb-label {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+.theme-slate .sl-monogram {
+  width: 40pt;
+  height: 40pt;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--rb-space-md);
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #0f172a;
+  background: var(--rb-color-primary);
+}
+
+.theme-slate .sl-contact {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--rb-space-md);
+  display: grid;
+  gap: 3pt;
+  font-size: var(--rb-text-small);
+  color: var(--rb-color-muted);
+  overflow-wrap: anywhere;
+}
+
+.theme-slate .rb-aside .rb-chip {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.theme-slate .rb-main .rb-section-title {
+  color: var(--rb-color-primary);
+}
+
+.theme-slate .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+/* ============ Nordic ============ */
+
+.theme-nordic .rb-header {
+  padding-bottom: var(--rb-space-md);
+}
+
+.theme-nordic .rb-header::after {
+  content: "";
+  display: block;
+  width: 40pt;
+  height: 2.5pt;
+  margin-top: var(--rb-space-md);
+  border-radius: 2pt;
+  background: var(--rb-color-primary);
+}
+
+.theme-nordic .rb-name {
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.theme-nordic .rb-label {
+  color: var(--rb-color-primary);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: var(--rb-text-small);
+}
+
+.theme-nordic .rb-columns {
+  gap: 6mm;
+  align-items: stretch;
+}
+
+.theme-nordic .rb-aside {
+  width: 54mm;
+  padding: 5mm;
+  border-radius: 6px;
+  background: #f1f6fb;
+}
+
+.theme-nordic .rb-aside .rb-chip {
+  background: #ffffff;
+}
+
+.theme-nordic .rb-entry-meta {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}

@@ -1,0 +1,501 @@
+{
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path or URL of the JSON Schema, for editor autocompletion."
+    },
+    "basics": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full name."
+        },
+        "label": {
+          "type": "string",
+          "description": "Headline under the name, e.g. \"Senior Software Engineer\"."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number in any readable format."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Personal website or portfolio."
+        },
+        "location": {
+          "type": "string",
+          "description": "City and country, e.g. \"Bengaluru, India\"."
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "type": "string",
+                "description": "Platform name, e.g. \"GitHub\", \"LinkedIn\"."
+              },
+              "username": {
+                "type": "string",
+                "description": "Handle on the platform."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Full profile URL."
+              }
+            },
+            "required": [
+              "network",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Social / coding profiles (GitHub, LinkedIn, ...)."
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "Name and contact details. The only required section."
+    },
+    "summary": {
+      "type": "string",
+      "description": "Professional summary paragraph."
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Group heading, e.g. \"Languages\", \"Cloud\"."
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Skills in this group."
+          }
+        },
+        "required": [
+          "name",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Skills grouped by category."
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string",
+            "description": "Employer name. Consecutive entries with the same company may be grouped by some themes."
+          },
+          "position": {
+            "type": "string",
+            "description": "Job title."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Company website."
+          },
+          "location": {
+            "type": "string",
+            "description": "Work location."
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\". Omit for a current role (\"Present\")."
+          },
+          "summary": {
+            "type": "string",
+            "description": "One or two lines describing the role."
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Achievement bullets. Supports **bold** inline."
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Technologies used in this role."
+          }
+        },
+        "required": [
+          "company",
+          "position",
+          "startDate"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Work history, most recent first."
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Project name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the repo or live project."
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Bullets about what you built / achieved."
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Technologies used."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Personal or professional projects."
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "institution": {
+            "type": "string",
+            "description": "School or university."
+          },
+          "area": {
+            "type": "string",
+            "description": "Field of study, e.g. \"Computer Science\"."
+          },
+          "studyType": {
+            "type": "string",
+            "description": "Degree, e.g. \"B.Tech\", \"MSc\"."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Institution website."
+          },
+          "location": {
+            "type": "string",
+            "description": "Campus location."
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "score": {
+            "type": "string",
+            "description": "GPA / grade, e.g. \"8.4/10\"."
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Coursework, honors, activities."
+          }
+        },
+        "required": [
+          "institution"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Education history."
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Certification name."
+          },
+          "issuer": {
+            "type": "string",
+            "description": "Issuing organization."
+          },
+          "date": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Credential verification link."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Professional certifications."
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Achievement headline."
+          },
+          "date": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Context or impact."
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Notable achievements."
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Award title."
+          },
+          "awarder": {
+            "type": "string",
+            "description": "Organization that gave the award."
+          },
+          "date": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Why you received it."
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Awards and honors."
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Title of the publication."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Journal, conference or website."
+          },
+          "releaseDate": {
+            "type": "string",
+            "description": "Date as \"YYYY\" or \"YYYY-MM\", e.g. \"2022-04\"."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the publication."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Short abstract."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Papers, articles, talks."
+    },
+    "openSource": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Project or repository name."
+          },
+          "role": {
+            "type": "string",
+            "description": "Your role, e.g. \"Maintainer\", \"Contributor\"."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Repository URL."
+          },
+          "description": {
+            "type": "string",
+            "description": "What the project does."
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Your contributions."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Open-source contributions."
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "Language name, e.g. \"English\"."
+          },
+          "fluency": {
+            "type": "string",
+            "description": "Proficiency, e.g. \"Native\", \"Professional\"."
+          }
+        },
+        "required": [
+          "language"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Spoken languages."
+    },
+    "interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal interests."
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "sectionOrder": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "experience",
+              "skills",
+              "projects",
+              "education",
+              "certifications",
+              "achievements",
+              "awards",
+              "publications",
+              "openSource",
+              "languages",
+              "interests"
+            ]
+          },
+          "description": "Render sections in this order; omitted sections use the default order."
+        },
+        "hiddenSections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "experience",
+              "skills",
+              "projects",
+              "education",
+              "certifications",
+              "achievements",
+              "awards",
+              "publications",
+              "openSource",
+              "languages",
+              "interests"
+            ]
+          },
+          "description": "Sections to hide even if data is present."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Layout controls: section order and visibility."
+    }
+  },
+  "required": [
+    "basics"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/dev-saw99/resume/resume.schema.json",
+  "title": "Resume",
+  "description": "Resume data for Resume Builder. Only `basics` is required; every other section is optional."
+}

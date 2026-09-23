@@ -1,4 +1,5 @@
 {
+  "$schema": "../resume.schema.json",
   "basics": {
     "name": "Sonu Kumar Saw",
     "label": "Senior Software Engineer",

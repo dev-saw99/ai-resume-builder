@@ -132,6 +132,10 @@ export interface Theme {
    * Omit for single-column themes.
    */
   sidebar?: SectionKey[];
+  /** Which side the sidebar sits on. Defaults to "right". */
+  sidebarPosition?: "left" | "right";
+  /** Render the Header inside the sidebar instead of across the top. */
+  headerInSidebar?: boolean;
 }
 
 /** Flatten tokens into `--rb-*` CSS custom properties. */

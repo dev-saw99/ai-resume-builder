@@ -12,7 +12,8 @@
     "dev": "npm run dev --workspace=@resume/web",
     "build": "npm run build --workspace=@resume/web",
     "preview": "npm run preview --workspace=@resume/web",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "schema:generate": "node packages/schema/scripts/generate-json-schema.mjs"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

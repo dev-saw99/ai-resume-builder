@@ -28,10 +28,10 @@ Open the app, edit the JSON on the left, watch the preview update instantly. Pic
 
 | Package | Purpose |
 | --- | --- |
-| `packages/schema` | Zod schema, TypeScript types, `validateResume`, section ordering |
+| `packages/schema` | Zod schema, TypeScript types, `validateResume`, section ordering, JSON Schema generator |
 | `packages/ui` | Theme contract (`Theme`, `DesignTokens`), typed section components, base CSS |
 | `packages/renderer` | `<ResumeRenderer data={...} theme={...} />` |
-| `packages/themes` | Violet, Linear, Minimal, Executive, Stripe, GitHub, Ivory, Mono, Atlas (two-column), Netflix, Google, Anthropic, OpenAI, xAI, Meta |
+| `packages/themes` | 27 themes — see [Themes](#themes) |
 | `packages/pdf` | `useResumePdf` print hook, paper sizes (A4 / Letter) |
 | `apps/web` | Vite + React 19 + Tailwind v4 + Zustand editor app |
 | `examples/` | Example resume JSON |
@@ -51,6 +51,25 @@ Everything is optional except `basics`. See [`examples/sonu.json`](examples/sonu
 
 Supported sections: `summary`, `experience`, `skills`, `projects`, `education`, `certifications`, `achievements`, `awards`, `publications`, `openSource`, `languages`, `interests`. Reorder or hide sections with `meta.sectionOrder` / `meta.hiddenSections`.
 
+### JSON Schema
+
+[`resume.schema.json`](resume.schema.json) describes every field (types, required keys, descriptions). Point your resume at it and editors (VS Code, JetBrains, …) give autocompletion and inline validation:
+
+```json
+{ "$schema": "./resume.schema.json", "basics": { "name": "Ada Lovelace" } }
+```
+
+The file is generated from the Zod schema, so never edit it by hand — run `npm run schema:generate` after changing `packages/schema/src/index.ts`. Dates use `"YYYY"` or `"YYYY-MM"`; omit `endDate` for a current role.
+
+## Themes
+
+| Kind | Themes |
+| --- | --- |
+| Single column | Minimal, Linear, GitHub, Stripe, Notion, Apple, Violet, Executive, Academic, Mono, Ivory, Editorial, Google, Anthropic, OpenAI, Netflix, Meta, xAI |
+| Two column | Atlas (right sidebar), Ocean (tinted right panel), Slate (dark left sidebar with monogram + contact), Nordic (frosted left sidebar) |
+| Graphical | Banner (gradient header card), Timeline (vertical rail with dots), Sunset (gradient accents) — Ocean, Slate, Banner, Midnight and Sunset also render skills as chips |
+| Dark | Midnight, Terminal (backgrounds are printed into the PDF) |
+
 ## Writing a theme
 
 A theme is design tokens plus a full set of section components. Spread the defaults and override only what you need:
@@ -67,6 +86,8 @@ export const myTheme: Theme = {
 };
 ```
 
+Set `sidebar` to move sections into a second column, `sidebarPosition: "left"` to put it on the left, and `headerInSidebar: true` to render the header at the top of the sidebar (see `slate.tsx`).
+
 Tokens become `--rb-*` CSS variables on the resume root; the base stylesheet in `@resume/ui` consumes them. Themes never touch resume data.
 
 ## Scripts
@@ -75,6 +96,7 @@ Tokens become `--rb-*` CSS variables on the resume root; the base stylesheet in 
 npm run dev        # start the editor app
 npm run build      # production build
 npm run typecheck  # tsc across the whole monorepo
+npm run schema:generate  # regenerate resume.schema.json from the Zod schema
 ```
 
 ## Roadmap
@@ -82,7 +104,7 @@ npm run typecheck  # tsc across the whole monorepo
 - [x] Phase 1 — schema, renderer, theme API, Linear theme, print/PDF, example resume
 - [x] Phase 2 (partial) — Minimal & Executive themes
 - [x] Phase 3 (partial) — live JSON editor, validation, theme switcher
-- [ ] More themes (Stripe, OpenAI, Apple, GitHub, Notion, Vercel)
+- [x] More themes — two-column, graphical and dark layouts
 - [ ] Dark mode, print preview polish
 - [ ] AI: resume generation, job tailoring, cover letters, ATS scoring
 - [ ] CLI: `resume dev` / `resume build` / `resume export pdf`

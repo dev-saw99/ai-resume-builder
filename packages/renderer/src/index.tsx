@@ -44,16 +44,35 @@ export function ResumeRenderer({ data, theme, className, style }: ResumeRenderer
   const mainSections = ordered.filter((key) => !sidebarSet.has(key));
   const asideSections = ordered.filter((key) => sidebarSet.has(key));
 
+  const hasAside = asideSections.length > 0 || Boolean(theme.headerInSidebar);
+  const asideFirst = theme.sidebarPosition === "left";
+  const header = <C.Header basics={data.basics} />;
+
+  const main = <div className="rb-main">{mainSections.map(renderSlot)}</div>;
+  const aside = (
+    <aside className="rb-aside">
+      {theme.headerInSidebar ? header : null}
+      {asideSections.map(renderSlot)}
+    </aside>
+  );
+
   return (
     <div
-      className={["rb-resume", theme.className, className].filter(Boolean).join(" ")}
+      className={[
+        "rb-resume",
+        theme.className,
+        hasAside ? `rb-has-aside rb-aside-${asideFirst ? "left" : "right"}` : null,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       style={{ ...tokensToCssVars(theme.tokens), ...style }}
     >
-      <C.Header basics={data.basics} />
-      {asideSections.length > 0 ? (
+      {theme.headerInSidebar ? null : header}
+      {hasAside ? (
         <div className="rb-columns">
-          <div className="rb-main">{mainSections.map(renderSlot)}</div>
-          <aside className="rb-aside">{asideSections.map(renderSlot)}</aside>
+          {asideFirst ? aside : main}
+          {asideFirst ? main : aside}
         </div>
       ) : (
         ordered.map(renderSlot)
