@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Inter for Linear/Minimal themes; falls back to system sans offline. */
+
+body {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* JSON editor syntax highlighting. */
+.json-key {
+  color: #7dd3fc;
+}
+.json-string {
+  color: #86efac;
+}
+.json-number {
+  color: #fbbf24;
+}
+.json-boolean {
+  color: #f472b6;
+}
+.json-null {
+  color: #f87171;
+}
+
+/* Page frame: invisible on screen, provides painted margins in print. */
+.rb-page-frame {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rb-page-frame td {
+  padding: 0;
+}
+
+.rb-page-spacer {
+  height: 0;
+}
+
+/* Browser Ctrl+P fallback: print only the resume page, no app chrome.
+   Margins are painted inside the page (see .rb-page-frame), not via @page. */
+@page {
+  margin: 0;
+}
+
+@media print {
+  .rb-page-spacer {
+    height: var(--print-margin, 12mm);
+  }
+
+  .resume-page .rb-resume {
+    padding: 0 var(--print-margin, 12mm);
+  }
+
+  .app-chrome,
+  .preview-scroll {
+    all: unset;
+  }
+
+  .app-chrome {
+    display: none !important;
+  }
+
+  .preview-zoom {
+    zoom: 1 !important;
+  }
+
+  .resume-page {
+    width: auto !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+}

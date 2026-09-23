@@ -1,0 +1,173 @@
+{
+  "basics": {
+    "name": "Sonu Kumar Saw",
+    "label": "Senior Software Engineer",
+    "email": "sonukumarsaw66@gmail.com",
+    "phone": "+91 7979724992",
+    "location": "Bengaluru, India",
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "dev-saw99",
+        "url": "https://github.com/dev-saw99"
+      }
+    ]
+  },
+  "summary": "Senior Software Engineer with 6 years of experience designing and building cloud-native distributed systems using Golang, Python, Kubernetes, AWS, and GCP. Experienced in architecting scalable microservices, cloud infrastructure platforms, and high-performance APIs with a strong focus on reliability, security, and operational excellence. Proven track record of optimizing large-scale systems, reducing infrastructure costs, and delivering platform capabilities used across engineering teams. Passionate about distributed systems, cloud architecture, and building resilient platforms that scale.",
+  "skills": [
+    {
+      "name": "Programming Languages",
+      "keywords": [
+        "Golang",
+        "Python",
+        "TypeScript/JavaScript",
+        "Node.JS",
+        "React"
+      ]
+    },
+    {
+      "name": "Cloud & Infrastructure",
+      "keywords": [
+        "AWS",
+        "GCP",
+        "Kubernetes",
+        "Docker",
+        "Terraform",
+        "Helm",
+        "ArgoCD"
+      ]
+    },
+    {
+      "name": "Distributed Systems",
+      "keywords": [
+        "Microservices",
+        "REST APIs",
+        "gRPC",
+        "WebSockets",
+        "Distributed Systems",
+        "Event-Driven Architecture",
+        "Concurrency"
+      ]
+    },
+    {
+      "name": "Databases & Storage",
+      "keywords": [
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Vector Databases"
+      ]
+    },
+    {
+      "name": "Cloud Platform & Security",
+      "keywords": [
+        "IAM",
+        "VPC Service Controls (VPCSC)",
+        "Cloud Resource Optimisation",
+        "Cloud Resource Management",
+        "Infrastructure Automation"
+      ]
+    },
+    {
+      "name": "AI & LLM",
+      "keywords": [
+        "AI Agents",
+        "Voice Agents",
+        "RAG",
+        "Vertex AI",
+        "Gemini",
+        "LangChain"
+      ]
+    },
+    {
+      "name": "Observability & Developer Tools",
+      "keywords": [
+        "Grafana",
+        "Swagger/OpenAPI",
+        "GitHub",
+        "K9S"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "PayPal",
+      "position": "Senior Software Engineer",
+      "startDate": "2024-11",
+      "highlights": [
+        "**Leading the Design and development of a cloud resource recommendation engine** that analyzes cloud resource utilization and infrastructure telemetry to generate actionable optimization recommendations, helping identify **over $6.3M in annualized cloud cost savings** while improving resource efficiency and governance.",
+        "**Building an AI-powered Cloud Operations Agent** using **Vertex AI, Gemini, and RAG** that enables engineers to interact with cloud infrastructure through a conversational interface, troubleshoot operational issues, answer infrastructure queries, and securely execute cloud management workflows.",
+        "**Maintaining and enhancing Public Cloud Manager**, a cloud-agnostic platform for provisioning and governing cloud projects/accounts, IAM, VPC Service Controls (VPCSC), resource lifecycle, and cloud services across public cloud providers, improving platform reliability and operational efficiency.",
+        "**Developing scalable backend microservices in Golang** to automate cloud provisioning, policy enforcement, and resource management, contributing to a secure self-service cloud platform used by engineering teams.",
+        "**Mentoring engineers** through code reviews and design discussions on the cloud platform team, helping onboard new members to the Public Cloud Manager architecture and raising the bar on service reliability and operational hygiene."
+      ]
+    },
+    {
+      "company": "Amagi",
+      "position": "Sr. Software Engineer",
+      "startDate": "2024-04",
+      "endDate": "2024-11",
+      "highlights": [
+        "**Led the design and development of an orchestration microservice and CLI** which enables the users to deploy or upgrade Amagi's cloud offerings with ease, eliminating the necessity for Kubernetes expertise among users.",
+        "**Optimized deployment of the topology of pods in Kubernetes** by deriving configuration from peer pods and customer profiles, **reducing manual input from ~600 to ~150 configs** per topology and enhancing operational stability and maintenance.",
+        "**Reduced Downtime and Costs**: With intelligent config discovery algorithms and customer config profiling, we reduced downtime during upgrades and new deployment from ~2-3 hours to 10-15 mins.",
+        "**Created a pod orchestration scheduler** that enables users to schedule the topology deployment and destruction, which enables our customers to run live stream pods for a specific duration and **save on operational costs by ~40%.**"
+      ]
+    },
+    {
+      "company": "Amagi",
+      "position": "Software Engineer",
+      "startDate": "2022-06",
+      "endDate": "2024-04",
+      "highlights": [
+        "**Developed a highly precise state machine backend microservice in Golang** with support for automated TV channel playlist scheduling and playback with millisecond accuracy, **supporting over 590 live TV channels and millions of concurrent viewers** for companies like **NBCU, DAZN, Rakuten, and Sinclair.**",
+        "**Optimized service performance**, migrated from **REST API to PubNub, WebSocket, and gRPC** for UI to backend communication and internal microservice communications, **which reduced latency by 95% from 2-3 seconds to ~100 milliseconds.**",
+        "**Reduced memory consumption by 35%** by profiling the internal golang library, which consumed unnecessary memory; this reduced the operational cost of our microservice.",
+        "Identified and fixed legacy bugs which improved the overall stability and reliability of our microservice."
+      ]
+    },
+    {
+      "company": "SKIDOS",
+      "position": "Software Engineer",
+      "startDate": "2020-10",
+      "endDate": "2022-06",
+      "highlights": [
+        "Developed a Video Streaming microservice using **Golang and AWS** for SKIDOS **Unity** based game SDK, this feature **increased user engagement and increased MAU of SKIDOS Games.**",
+        "Rewritten Subscription Microservice in Golang, **cutting Google Play subscription failures from 35-40% to ~0%** by implementing webhooks to enhance subscription success rates and eliminate receipt re-verifications. **Boosted Android user retention** and increased profits.",
+        "Migrated from self-managed MongoDB to MongoDB Atlas, **improving performance, availability, and reliability** for better data management and application availability.",
+        "Created multiple POC around CI/CD based deployment using GitHub Actions and AWS.",
+        "Enabled backend services to launch marketing campaigns on the go without deploying new versions of SKIDOS applications across ecosystems like iOS, Android, Web. This enabled the marketing and sales teams to run quick campaigns and improved user acquisition and retention."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Voice AI Agent Platform",
+      "description": "Real-time voice AI platform for building conversational AI agents using Gemini Live, RAG, and telephony integrations.",
+      "highlights": [
+        "Built a production-ready Voice AI platform enabling developers to create AI agents with natural, low-latency voice conversations using **Gemini Live**, **RAG**, and **WebSockets**.",
+        "Implemented an agentic workflow supporting conversational reasoning, knowledge retrieval, function execution, and real-time voice interactions through telephony integrations.",
+        "Designed a modular architecture with pluggable LLM providers, vector databases, and retrieval pipelines, allowing developers to customize AI agents for domain-specific use cases."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Lovely Professional University",
+      "area": "Computer Science Engineering",
+      "studyType": "Bachelor of Technology",
+      "startDate": "2017",
+      "endDate": "2021"
+    }
+  ],
+  "meta": {
+    "sectionOrder": [
+      "summary",
+      "skills",
+      "experience",
+      "projects",
+      "education"
+    ]
+  }
+}

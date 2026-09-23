@@ -1,0 +1,15 @@
+{
+  "name": "@resume/themes",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@resume/schema": "*",
+    "@resume/ui": "*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

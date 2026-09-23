@@ -1,0 +1,15 @@
+{
+  "name": "@resume/renderer",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.tsx",
+  "module": "src/index.tsx",
+  "types": "src/index.tsx",
+  "dependencies": {
+    "@resume/schema": "*",
+    "@resume/ui": "*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

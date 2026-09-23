@@ -1,0 +1,20 @@
+{
+  "name": "resume-builder",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Developer-focused resume builder — resumes as code. JSON in, beautiful ATS-friendly PDF out.",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@resume/web",
+    "build": "npm run build --workspace=@resume/web",
+    "preview": "npm run preview --workspace=@resume/web",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

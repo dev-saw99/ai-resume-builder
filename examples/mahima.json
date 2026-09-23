@@ -1,0 +1,165 @@
+{
+  "basics": {
+    "name": "Mahima Kumari",
+    "label": "QA Analyst",
+    "email": "mahimayadowansi@gmail.com",
+    "phone": "+91 9304718797",
+    "location": "New Delhi, India",
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "mahima-kumari27",
+        "url": "https://www.linkedin.com/in/mahima-kumari27"
+      },
+      {
+        "network": "GitHub",
+        "username": "MahimaYadowansi",
+        "url": "https://github.com/MahimaYadowansi"
+      }
+    ]
+  },
+  "summary": "QA Analyst with 1.5+ years of experience in manual, automation, API, integration, regression, functional, and performance testing. Proficient in Java, Selenium WebDriver, Playwright, TestNG, Postman, JMeter, and Jenkins. Experienced in building automation frameworks, testing REST APIs, performance testing, and AI-powered API testing using OpenAPI specifications. Proven track record of improving test coverage, reducing test execution time, and identifying critical defects.",
+  "skills": [
+    {
+      "name": "Testing",
+      "keywords": [
+        "Manual Testing",
+        "Automation Testing",
+        "Functional Testing",
+        "Regression Testing",
+        "Smoke Testing",
+        "Integration Testing",
+        "UAT",
+        "SDLC",
+        "STLC"
+      ]
+    },
+    {
+      "name": "Programming Languages",
+      "keywords": [
+        "Java",
+        "JavaScript/TypeScript"
+      ]
+    },
+    {
+      "name": "Automation Frameworks",
+      "keywords": [
+        "Selenium WebDriver",
+        "Playwright",
+        "TestNG",
+        "Page Object Model (POM)",
+        "Maven"
+      ]
+    },
+    {
+      "name": "API & Performance Testing",
+      "keywords": [
+        "Postman",
+        "REST APIs",
+        "Apache JMeter",
+        "BlazeMeter",
+        "AI-Assisted API Testing",
+        "API Automation Testing",
+        "Load Testing",
+        "Performance Testing"
+      ]
+    },
+    {
+      "name": "Databases",
+      "keywords": [
+        "MySQL"
+      ]
+    },
+    {
+      "name": "CI/CD",
+      "keywords": [
+        "Jenkins",
+        "GitHub",
+        "Azure DevOps",
+        "Azure Repos",
+        "Azure Boards"
+      ]
+    },
+    {
+      "name": "Project Management & Methodologies",
+      "keywords": [
+        "Jira",
+        "Agile",
+        "Scrum"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "iSource Technologies",
+      "position": "QA Analyst",
+      "startDate": "2025-05",
+      "highlights": [
+        "Worked closely with development and product teams to deliver quality products across **Onboarding, HRMS, GIG Apps, and CRMS**, supporting production solutions used by **Swiggy, Blinkit, CJ Darcl, Xpressbees, DishTV, and DTDC**.",
+        "Designed and maintained **460+ test cases** across multiple products and business-critical workflows, improving functional and regression test coverage.",
+        "Performed **manual, automation, and API testing** across multiple web-based applications, ensuring quality across end-to-end workflows.",
+        "Automated the Eco Onboarding Platform using **Selenium WebDriver, TestNG, and Page Object Model (POM)**, reducing test execution time by **70%**.",
+        "Integrated test automation with **Azure DevOps pipelines** and used Azure Repos and Azure Boards for source control and issue tracking.",
+        "Performed **functional, regression, integration, UI, and UAT testing** for CRMS and HRMS workflows, identifying and reporting approximately **57 defects**.",
+        "Validated **REST APIs using Postman** and performed basic **performance and load testing using Apache JMeter**.",
+        "Performed backend API validation and verified **data consistency across multiple HRMS and CRMS modules**."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Specora.ai — AI-Powered API Testing",
+      "description": "AI-powered API testing tool that converts OpenAPI specifications into deterministic, executable API test suites.",
+      "url": "https://github.com/MahimaYadowansi/specora.ai",
+      "highlights": [
+        "Built an **AI-powered API testing** workflow that generates executable test suites directly from **OpenAPI specifications**.",
+        "Implemented **single and multi-step chainable API test scenarios** for end-to-end workflows such as CRUD operations.",
+        "Designed a **deterministic JSON-based test suite format** with framework-agnostic execution and structured test results.",
+        "Designed for **API regression testing and CI/CD automation**, enabling generated test suites to run through compatible test runners."
+      ]
+    },
+    {
+      "name": "Naukri App — Automation & Performance Testing",
+      "description": "Automation and performance testing project for the Naukri web application.",
+      "url": "https://github.com/MahimaYadowansi/NaukriAutomation",
+      "highlights": [
+        "Developed a **Selenium WebDriver, TestNG, and Maven** automation framework using the **Page Object Model (POM)**.",
+        "Automated key workflows including **login, job search, job application, profile updates, resume upload, and logout**.",
+        "Performed **functional, UI, and performance testing** using Selenium, JMeter, and BlazeMeter.",
+        "Integrated the automation suite with **Jenkins** for continuous test execution."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Vinoba Bhave University",
+      "area": "Computer Applications",
+      "studyType": "Master of Computer Applications",
+      "score": "GPA 8.04"
+    },
+    {
+      "institution": "Vinoba Bhave University",
+      "area": "Computer Applications",
+      "studyType": "Bachelor of Computer Applications",
+      "score": "GPA 8.54"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Selenium 4 WebDriver with Java"
+    },
+    {
+      "name": "Postman: The Complete Guide, REST API Testing"
+    }
+  ],
+  "meta": {
+    "sectionOrder": [
+      "summary",
+      "skills",
+      "experience",
+      "projects",
+      "education",
+      "certifications"
+    ]
+  }
+}

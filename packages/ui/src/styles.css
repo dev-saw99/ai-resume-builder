@@ -1,0 +1,266 @@
+/*
+ * Base resume styles — driven entirely by --rb-* design tokens.
+ * Themes set the tokens (and may layer overrides via their .theme-* class).
+ * Print-first: page-break rules keep sections and entries intact.
+ */
+
+.rb-resume {
+  font-family: var(--rb-font-body);
+  font-size: var(--rb-text-body);
+  line-height: var(--rb-line-height);
+  color: var(--rb-color-text);
+  background: var(--rb-color-background);
+  padding: var(--rb-space-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.rb-resume a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Header ---------- */
+
+.rb-header {
+  margin-bottom: var(--rb-space-section);
+}
+
+.rb-name {
+  font-family: var(--rb-font-heading);
+  font-size: var(--rb-text-display-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--rb-color-text);
+}
+
+.rb-label {
+  font-size: var(--rb-text-title);
+  color: var(--rb-color-primary);
+  margin-top: var(--rb-space-sm);
+  font-weight: 500;
+}
+
+.rb-contact {
+  margin-top: var(--rb-space-md);
+  font-size: var(--rb-text-small);
+  color: var(--rb-color-muted);
+}
+
+.rb-contact-item + .rb-contact-item::before {
+  content: "·";
+  margin: 0 0.5em;
+  color: var(--rb-color-faint);
+}
+
+.rb-link {
+  color: inherit;
+}
+
+/* ---------- Sections ---------- */
+
+.rb-section {
+  margin-bottom: var(--rb-space-section);
+  break-inside: auto;
+}
+
+.rb-section-title {
+  font-family: var(--rb-font-heading);
+  font-size: var(--rb-text-heading);
+  font-weight: 600;
+  text-transform: var(--rb-heading-transform);
+  letter-spacing: var(--rb-heading-tracking);
+  color: var(--rb-color-primary);
+  border-bottom: 1px solid var(--rb-color-border);
+  padding-bottom: var(--rb-space-sm);
+  margin-bottom: var(--rb-space-md);
+  break-after: avoid;
+}
+
+/* ---------- Entries ---------- */
+
+.rb-entry {
+  margin-bottom: var(--rb-space-item);
+  break-inside: avoid;
+}
+
+.rb-entry:last-child {
+  margin-bottom: 0;
+}
+
+/* Soft divider between consecutive companies/roles — dimmed, not a hard rule. */
+.rb-slot-experience .rb-entry + .rb-entry {
+  border-top: 1px solid color-mix(in srgb, var(--rb-color-border) 45%, transparent);
+  padding-top: var(--rb-space-item);
+}
+
+.rb-entry-compact {
+  margin-bottom: var(--rb-space-sm);
+}
+
+.rb-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--rb-space-md);
+  break-after: avoid;
+}
+
+.rb-entry-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--rb-space-sm);
+}
+
+.rb-entry-title {
+  font-size: var(--rb-text-title);
+  font-weight: 600;
+  color: var(--rb-color-text);
+}
+
+.rb-entry-subtitle {
+  font-size: var(--rb-text-body);
+  color: var(--rb-color-muted);
+}
+
+/* Company names are always highlighted, in every theme. */
+.rb-slot-experience .rb-entry-subtitle {
+  color: var(--rb-color-primary);
+  font-weight: 600;
+}
+
+.rb-entry-subtitle::before {
+  content: "·";
+  margin-right: 0.5em;
+  color: var(--rb-color-faint);
+}
+
+.rb-entry-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.rb-entry-meta {
+  font-size: var(--rb-text-small);
+  color: var(--rb-color-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rb-entry-location {
+  font-size: var(--rb-text-caption);
+  color: var(--rb-color-faint);
+}
+
+.rb-entry-summary {
+  margin-top: var(--rb-space-sm);
+  color: var(--rb-color-text);
+}
+
+.rb-entry-keywords {
+  margin-top: var(--rb-space-sm);
+  font-size: var(--rb-text-small);
+  color: var(--rb-color-faint);
+  font-family: var(--rb-font-mono);
+}
+
+/* ---------- Bullets ---------- */
+
+.rb-bullets {
+  margin-top: var(--rb-space-sm);
+  padding-left: 1.1em;
+  list-style: disc;
+}
+
+.rb-bullets li {
+  margin-bottom: calc(var(--rb-space-sm) / 2);
+  padding-left: 0.15em;
+}
+
+.rb-bullets li::marker {
+  color: var(--rb-color-faint);
+}
+
+/* ---------- Skills ---------- */
+
+.rb-skills {
+  display: grid;
+  gap: var(--rb-space-sm);
+}
+
+.rb-skill-group {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: var(--rb-space-md);
+  align-items: baseline;
+}
+
+.rb-skill-name {
+  font-weight: 600;
+  font-size: var(--rb-text-small);
+  color: var(--rb-color-text);
+}
+
+.rb-skill-keywords {
+  color: var(--rb-color-muted);
+}
+
+/* ---------- Two-column layout (themes with a sidebar) ---------- */
+
+.rb-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rb-space-lg);
+}
+
+.rb-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.rb-aside {
+  flex: 0 0 auto;
+}
+
+/* ---------- Misc ---------- */
+
+.rb-summary,
+.rb-inline-section {
+  color: var(--rb-color-text);
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+  .rb-resume {
+    padding: 0;
+    /* Honor the theme/user background in the PDF (white for most themes). */
+    background: var(--rb-color-background);
+  }
+
+  .rb-resume a {
+    color: inherit;
+  }
+
+  .rb-section-title,
+  .rb-entry-header {
+    break-after: avoid-page;
+  }
+
+  .rb-entry {
+    break-inside: avoid-page;
+  }
+
+  p,
+  li {
+    orphans: 2;
+    widows: 2;
+  }
+}
